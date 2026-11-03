@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Portfolio Lyam Uhel-Veyret</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Portfolio BTS SIO SISR de Lyam Uhel-Veyret : stages, réalisations professionnelles, veille et compétences du bloc 1.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0}img{max-width:100%}
+/* Layout : cockpit sombre façon TauxPilot. Barre de navigation fixe, une vue par rubrique,
+   la "trajectoire" vert → turquoise relie le parcours comme elle relie une offre à sa date de fin. */
+:root{
+  --night:#07162D;      /* fond principal, bleu nuit */
+  --panel:#10233F;      /* cartes, bleu panneau */
+  --panel-2:#0B1C35;
+  --line:#243B5A;       /* bordures fines */
+  --ink:#F8FAFC;        /* texte principal */
+  --ink-2:#B8C4D6;      /* texte secondaire */
+  --ink-3:#8496AF;
+  --green:#18A66A;      /* action, gain */
+  --teal:#1CC8A0;       /* accent */
+  --green-soft:rgba(24,166,106,.14);
+  --teal-soft:rgba(28,200,160,.12);
+  --warn:#E0A44A;
+  --code-bg:#061127;
+  --f-display:"Manrope","Inter",system-ui,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --r:10px;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --night:#F4F7FB; --panel:#FFFFFF; --panel-2:#EEF3F9; --line:#D5DEEA;
+    --ink:#07162D; --ink-2:#3E5170; --ink-3:#62738E;
+    --green:#12844F; --teal:#0E9C7C; --green-soft:rgba(18,132,79,.10); --teal-soft:rgba(14,156,124,.10);
+    --warn:#A86A12; --code-bg:#0B1C35; color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --night:#F4F7FB; --panel:#FFFFFF; --panel-2:#EEF3F9; --line:#D5DEEA;
+  --ink:#07162D; --ink-2:#3E5170; --ink-3:#62738E;
+  --green:#12844F; --teal:#0E9C7C; --green-soft:rgba(18,132,79,.10); --teal-soft:rgba(14,156,124,.10);
+  --warn:#A86A12; --code-bg:#0B1C35; color-scheme:light;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--night);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--night)}
+a{color:var(--teal);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.muted{color:var(--ink-2)}
+.prose{max-width:68ch;display:grid;gap:12px;color:var(--ink-2)}
+.prose strong{color:var(--ink)}
+
+/* Navigation */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--night) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;min-height:64px;flex-wrap:wrap;padding-block:8px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:var(--f-body);font-weight:700;font-size:1.15rem;letter-spacing:-.01em}
+.badge{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#18A66A,#1CC8A0);display:grid;place-items:center;flex:none}
+.brand b{color:var(--green);font-weight:700}
+.nav{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto}
+.nav a{color:var(--ink-2);text-decoration:none;font-size:.9rem;font-weight:500;padding:7px 11px;border-radius:7px}
+.nav a:hover{color:var(--ink);background:var(--panel)}
+.nav a[aria-current="page"]{color:var(--ink);background:var(--green-soft);box-shadow:inset 0 -2px 0 var(--green)}
+.theme-btn{background:transparent;border:1px solid var(--line);color:var(--ink-2);border-radius:7px;width:36px;height:34px;cursor:pointer;display:grid;place-items:center}
+.theme-btn:hover{color:var(--ink)}
+.menu-btn{display:none}
+@media (max-width:860px){
+  .menu-btn{display:grid;margin-left:auto}
+  .nav{display:none;width:100%;margin-left:0;padding-bottom:8px}
+  .nav.open{display:flex;flex-direction:column}
+  .nav a{padding:10px 12px}
+}
+
+/* Vues */
+main{padding-block:40px 72px}
+.view{display:grid;gap:40px;animation:fade .35s ease}
+@keyframes fade{from{transform:translateY(6px)}to{transform:none}}
+.page-head{display:grid;gap:12px;max-width:760px}
+.page-head p{color:var(--ink-2);font-size:1.05rem}
+
+/* Boutons */
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;text-decoration:none;padding:11px 18px;border-radius:8px;border:1px solid transparent;cursor:pointer;font-family:inherit}
+.btn-main{background:var(--green);color:#fff}
+.btn-main:hover{background:var(--teal);color:#06261C}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
+.hero-copy{display:grid;gap:18px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--green),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{font-size:1.1rem;color:var(--ink-2);max-width:56ch}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--ink-2);border:1px solid var(--line);border-radius:6px;padding:6px 10px;width:fit-content}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px var(--teal-soft)}
+
+/* Carte "offre" façon comparateur */
+.offer{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:grid;gap:16px}
+.offer-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.offer-row:last-child{border-bottom:0;padding-bottom:0}
+.offer-row span{color:var(--ink-2);font-size:.9rem}
+.offer-row strong{font-family:var(--f-display);font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--green);white-space:nowrap}
+.offer-row strong.t{color:var(--teal)}
+.offer-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.pill{font-size:.75rem;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--green-soft);color:var(--green);white-space:nowrap}
+
+/* Trajectoire du parcours */
+.traj-box{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r);padding:20px 8px 8px;overflow-x:auto}
+.traj-box svg{display:block;min-width:720px;width:100%;height:auto}
+.traj-lbl{font-family:var(--f-body);font-size:13px;font-weight:600;fill:var(--ink)}
+.traj-sub{font-family:var(--f-body);font-size:12px;fill:var(--ink-3)}
+.traj-yr{font-family:var(--f-mono);font-size:11.5px;fill:var(--teal)}
+.traj-path{stroke-dasharray:1400;stroke-dashoffset:0;animation:draw 1.6s ease-out}
+@keyframes draw{from{stroke-dashoffset:1400}to{stroke-dashoffset:0}}
+
+/* Grilles de cartes */
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start;text-decoration:none;color:var(--ink);transition:border-color .2s,transform .2s}
+a.card:hover{border-color:var(--teal);transform:translateY(-2px)}
+.card p{color:var(--ink-2);font-size:.95rem}
+.card .meta{font-size:.8rem;color:var(--ink-3);font-family:var(--f-mono)}
+.card .go{color:var(--teal);font-weight:600;font-size:.9rem;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:.75rem;font-weight:600;padding:3px 8px;border-radius:5px;border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.chip.c{border-color:transparent;background:var(--teal-soft);color:var(--teal)}
+
+/* Section titrée */
+.sec{display:grid;gap:18px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+
+/* CV */
+.cv{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:20px}
+@media (max-width:860px){.cv{grid-template-columns:1fr}}
+.cv-side{display:grid;gap:16px;align-content:start}
+.cv-block{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:12px;align-content:start}
+.cv-block h3{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-family:var(--f-body);font-weight:600}
+.cv-block ul{margin:0;padding-left:18px;color:var(--ink-2);display:grid;gap:4px}
+.xp{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 16px;padding-block:12px;border-top:1px solid var(--line)}
+.xp:first-of-type{border-top:0;padding-top:0}
+.xp .when{font-family:var(--f-mono);font-size:.8rem;color:var(--teal);padding-top:3px}
+.xp h4{margin:0;font-size:1rem}
+.xp .where{color:var(--ink-3);font-size:.9rem}
+.xp ul{grid-column:2}
+@media (max-width:520px){.xp{grid-template-columns:1fr}.xp ul{grid-column:1}}
+.copy-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.copy-row code{font-family:var(--f-mono);font-size:.85rem;color:var(--ink);user-select:all;word-break:break-all}
+.mini-btn{font:inherit;font-size:.8rem;background:transparent;border:1px solid var(--line);color:var(--ink-2);border-radius:6px;padding:3px 9px;cursor:pointer}
+.mini-btn:hover{color:var(--teal);border-color:var(--teal)}
+
+/* Fiche de réalisation */
+.crumb{font-size:.88rem;color:var(--ink-3);display:flex;gap:8px;flex-wrap:wrap}
+.crumb a{color:var(--ink-2);text-decoration:none}
+.crumb a:hover{color:var(--teal)}
+.fiche{display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:860px){.fiche{grid-template-columns:1fr}}
+.fiche-aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);display:grid;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+@media (max-width:860px){.fiche-aside{position:static}}
+.kv{display:grid;gap:2px}
+.kv span{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.kv b{font-weight:500;font-size:.95rem}
+.fiche-body{display:grid;gap:30px;min-width:0}
+.blk{display:grid;gap:10px}
+.blk h3{display:flex;align-items:center;gap:10px;font-size:1.1rem}
+.blk h3::before{content:"";width:14px;height:2px;background:var(--green);flex:none}
+.blk ul,.blk ol{margin:0;padding-left:20px;color:var(--ink-2);display:grid;gap:6px;max-width:72ch}
+.blk ul strong,.blk ol strong{color:var(--ink)}
+.blk > p{color:var(--ink-2);max-width:72ch}
+.proof-sentence{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;color:var(--ink-2);font-size:.95rem;display:grid;gap:6px}
+.proof-sentence b{color:var(--teal);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+.todo{border:1px dashed var(--warn);color:var(--warn);border-radius:var(--r);padding:12px 14px;font-size:.88rem;display:flex;gap:10px;align-items:flex-start}
+.todo::before{content:"À joindre";font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--warn);border-radius:4px;padding:1px 6px;flex:none;margin-top:2px}
+.code{background:var(--code-bg);border:1px solid var(--line);border-radius:var(--r);overflow-x:auto}
+.code .fn{font-family:var(--f-mono);font-size:.78rem;color:#8496AF;padding:8px 14px;border-bottom:1px solid #243B5A}
+.code pre{margin:0;padding:14px;font-family:var(--f-mono);font-size:.85rem;line-height:1.55;color:#E2E8F0}
+.code .cm{color:#5FD4B4}
+.stack{display:flex;flex-wrap:wrap;gap:6px}
+.stack span{font-family:var(--f-mono);font-size:.8rem;padding:4px 9px;border-radius:5px;background:var(--panel-2);border:1px solid var(--line);color:var(--ink-2)}
+.arch{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px}
+.arch div{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:12px;display:grid;gap:2px}
+.arch b{font-size:.92rem}
+.arch span{font-size:.82rem;color:var(--ink-3)}
+
+/* Matrice compétences */
+.matrix-box{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
+table.matrix{border-collapse:collapse;width:100%;min-width:760px;font-size:.9rem}
+.matrix th,.matrix td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+.matrix thead th{font-size:.78rem;font-weight:600;color:var(--ink-2);background:var(--panel-2);line-height:1.3}
+.matrix thead th a{color:var(--ink-2);text-decoration:none}
+.matrix thead th a:hover{color:var(--teal)}
+.matrix tbody th{text-align:left;font-weight:600;min-width:220px}
+.matrix tbody th small{display:block;color:var(--ink-3);font-weight:400;font-size:.78rem}
+.matrix tr:last-child th,.matrix tr:last-child td{border-bottom:0}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%}
+.dot.full{background:var(--green)}
+.dot.half{border:2px solid var(--teal)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.85rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.comp-list{display:grid;gap:14px}
+.comp{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px}
+.comp-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.comp-head .n{font-family:var(--f-mono);color:var(--teal);font-size:.85rem}
+.comp ul{margin:0;padding-left:20px;color:var(--ink-2);display:grid;gap:6px}
+
+/* Veille */
+.method{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
+.pp{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start}
+.pp .tag{font-family:var(--f-mono);font-size:.8rem;color:var(--teal)}
+.pp ul{margin:0;padding-left:18px;color:var(--ink-2);display:grid;gap:4px}
+.journal{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+.journal table{border-collapse:collapse;width:100%;min-width:640px;font-size:.9rem}
+.journal th,.journal td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.journal th{background:var(--panel-2);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.journal td{color:var(--ink-2);background:var(--panel)}
+.journal td:first-child{font-family:var(--f-mono);color:var(--teal);white-space:nowrap}
+.steps{counter-reset:s;display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.steps li{counter-increment:s;display:grid;grid-template-columns:32px minmax(0,1fr);gap:12px;color:var(--ink-2)}
+.steps li::before{content:counter(s);width:28px;height:28px;border-radius:7px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.steps li b{color:var(--ink)}
+
+footer{border-top:1px solid var(--line);padding-block:24px;color:var(--ink-3);font-size:.85rem}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#accueil" aria-label="Accueil du portfolio">
+      <span class="badge" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 18c4-1 6-4 8-8s4-6 9-6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M15 3.5h5.2v5.2" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span>Lyam<b>Pilot</b></span>
+    </a>
+    <button class="theme-btn menu-btn" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Rubriques">
+      <a href="#accueil" data-nav="accueil">Accueil</a>
+      <a href="#cv" data-nav="cv">Curriculum Vitae</a>
+      <a href="#stages" data-nav="stages">Stages</a>
+      <a href="#ateliers" data-nav="ateliers">Ateliers Pro</a>
+      <a href="#veille" data-nav="veille">Veille</a>
+      <a href="#competences" data-nav="competences">Compétences</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Changer de thème clair ou sombre">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ ACCUEIL ============ -->
+<section class="view" data-view="accueil" data-nav-parent="accueil">
+  <div class="hero">
+    <div class="hero-copy">
+      <span class="status"><i></i>Recherche de stage du 4 janvier au 19 février 2027</span>
+      <h1>Mon parcours en informatique, <em>piloté pas à pas.</em></h1>
+      <p class="lead">Je suis Lyam Uhel-Veyret, étudiant en BTS SIO option <strong>SISR</strong> (Solutions d'Infrastructure, Systèmes et Réseaux) au lycée Saint-John Perse de Pau. Mon objectif : devenir administrateur systèmes et réseaux, avec un intérêt fort pour l'automatisation et la cybersécurité.</p>
+      <div class="btns">
+        <a class="btn btn-main" href="#stages">Voir mes réalisations</a>
+        <a class="btn btn-ghost" href="#competences">Tableau des compétences</a>
+      </div>
+    </div>
+    <div class="offer" aria-label="Chiffres clés">
+      <div class="offer-head"><span class="eyebrow">Tableau de bord</span><span class="pill">2025 – 2027</span></div>
+      <div class="offer-row"><span>Postes déployés en stage (salle Info 1)</span><strong>36</strong></div>
+      <div class="offer-row"><span>Utilisateurs du parc du stage</span><strong class="t">2 200+</strong></div>
+      <div class="offer-row"><span>Compétences du bloc 1 couvertes</span><strong>6 / 6</strong></div>
+      <div class="offer-row"><span>Service web en production</span><strong class="t">tauxpilot.fr</strong></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div><span class="eyebrow">Trajectoire</span><h2>Mon parcours</h2></div></div>
+    <div class="traj-box" role="img" aria-label="Parcours : Bac Pro commerce en 2023, service civique en 2024, BTS SIO SISR en 2025, stage systèmes et réseaux en 2026, projet TauxPilot en 2026, stage de deuxième année en 2027, diplôme en 2027.">
+      <svg viewBox="0 0 1000 230" aria-hidden="true">
+        <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#18A66A"/><stop offset="1" stop-color="#1CC8A0"/></linearGradient></defs>
+        <path d="M40 190 L960 190" style="stroke:var(--line)" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
+        <path class="traj-path" d="M60 182 C 150 180, 170 168, 210 160 S 320 140, 360 132 S 470 104, 510 96 S 620 74, 660 70 S 770 52, 810 44 S 900 30, 940 26" stroke="url(#g)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <g>
+          <circle cx="60" cy="182" r="6" style="fill:var(--night)" stroke="#18A66A" stroke-width="3"/>
+          <text class="traj-yr" x="60" y="214" text-anchor="middle">2023</text>
+          <text class="traj-lbl" x="60" y="160" text-anchor="start">Bac Pro commerce</text>
+          <text class="traj-sub" x="60" y="144" text-anchor="start">Lycée Paul-Bert</text>
+        </g>
+        <g>
+          <circle cx="210" cy="160" r="6" style="fill:var(--night)" stroke="#18A66A" stroke-width="3"/>
+          <text class="traj-yr" x="210" y="214" text-anchor="middle">2024</text>
+          <text class="traj-lbl" x="210" y="128" text-anchor="middle">Service civique</text>
+          <text class="traj-sub" x="210" y="112" text-anchor="middle">Aide au numérique</text>
+        </g>
+        <g>
+          <circle cx="360" cy="132" r="6" style="fill:var(--night)" stroke="#19B076" stroke-width="3"/>
+          <text class="traj-yr" x="360" y="214" text-anchor="middle">2025</text>
+          <text class="traj-lbl" x="360" y="100" text-anchor="middle">BTS SIO SISR</text>
+          <text class="traj-sub" x="360" y="84" text-anchor="middle">Saint-John Perse, Pau</text>
+        </g>
+        <g>
+          <circle cx="510" cy="96" r="6" style="fill:var(--night)" stroke="#1ABA86" stroke-width="3"/>
+          <text class="traj-yr" x="510" y="214" text-anchor="middle">mai 2026</text>
+          <text class="traj-lbl" x="510" y="64" text-anchor="middle">Stage 1re année</text>
+          <text class="traj-sub" x="510" y="48" text-anchor="middle">5 semaines, systèmes et réseaux</text>
+        </g>
+        <g>
+          <circle cx="660" cy="70" r="6" style="fill:var(--night)" stroke="#1BC196" stroke-width="3"/>
+          <text class="traj-yr" x="660" y="214" text-anchor="middle">sept. 2026</text>
+          <text class="traj-lbl" x="660" y="118" text-anchor="middle">TauxPilot en ligne</text>
+          <text class="traj-sub" x="660" y="134" text-anchor="middle">Projet personnel</text>
+        </g>
+        <g>
+          <circle cx="810" cy="44" r="6" style="fill:var(--night)" stroke="#1CC8A0" stroke-width="3" stroke-dasharray="3 2"/>
+          <text class="traj-yr" x="810" y="214" text-anchor="middle">janv. 2027</text>
+          <text class="traj-lbl" x="810" y="92" text-anchor="middle">Stage 2e année</text>
+          <text class="traj-sub" x="810" y="108" text-anchor="middle">7 semaines, à venir</text>
+        </g>
+        <g>
+          <circle cx="940" cy="26" r="7" fill="#1CC8A0"/>
+          <text class="traj-yr" x="940" y="214" text-anchor="middle">2027</text>
+          <text class="traj-lbl" x="930" y="62" text-anchor="end">Diplôme BTS</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><div><span class="eyebrow">Rubriques</span><h2>Explorer le portfolio</h2></div></div>
+    <div class="grid">
+      <a class="card" href="#cv"><h3>Curriculum Vitae</h3><p>Formation, expériences, compétences techniques. Version PDF téléchargeable.</p><span class="go">Ouvrir le CV →</span></a>
+      <a class="card" href="#stages"><h3>Stages</h3><p>Stage à l'Institut Saint Dominique (Pau) : contexte, missions et 4 fiches de réalisation.</p><span class="go">Voir les stages →</span></a>
+      <a class="card" href="#ateliers"><h3>Ateliers Pro</h3><p>Réalisations menées en formation et en projet personnel, dont TauxPilot.</p><span class="go">Voir les ateliers →</span></a>
+      <a class="card" href="#veille"><h3>Veille technologique</h3><p>NetDevOps et Ansible : méthode PULL et PUSH, sources, journal et synthèses.</p><span class="go">Lire la veille →</span></a>
+      <a class="card" href="#competences"><h3>Compétences</h3><p>Les six compétences du bloc 1 reliées aux réalisations et à leurs preuves.</p><span class="go">Voir le tableau →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CV ============ -->
+<section class="view" data-view="cv" data-nav-parent="cv" hidden>
+  <div class="page-head">
+    <span class="eyebrow">Curriculum Vitae</span>
+    <h1>Lyam Uhel-Veyret</h1>
+    <p>Étudiant en BTS SIO SISR avec une première expérience terrain en administration système, réseau et support. Autonome, réactif et motivé.</p>
+    <div class="btns"><a class="btn btn-main" href="cv-lyam-uhel-veyret.pdf" target="_blank" rel="noopener">Télécharger le CV (PDF)</a></div>
+  </div>
+  <div class="cv">
+    <div class="cv-side">
+      <div class="cv-block">
+        <h3>Contact</h3>
+        <p class="muted">Pau / Bidart (64)</p>
+        <div class="copy-row"><code id="mail">lyamuhel64@gmail.com</code><button class="mini-btn" data-copy="mail" type="button">Copier</button></div>
+        <p class="muted">Permis B, véhiculé</p>
+      </div>
+      <div class="cv-block">
+        <h3>Systèmes</h3>
+        <ul><li>Installation et paramétrage de postes et d'OS</li><li>Machines virtuelles, SSH, FTP, serveur web</li><li>Active Directory, GPO, DNS, DHCP, Samba</li><li>Pare-feu</li></ul>
+      </div>
+      <div class="cv-block">
+        <h3>Réseaux et support</h3>
+        <ul><li>Adressage IP, sous-réseaux, VLAN</li><li>Dépannage et gestion d'un parc</li><li>Assistance utilisateurs</li></ul>
+      </div>
+      <div class="cv-block">
+        <h3>Web et programmation</h3>
+        <ul><li>HTML, CSS, PHP, SQL</li><li>WordPress</li><li>Docker, Git (projet TauxPilot)</li></ul>
+      </div>
+      <div class="cv-block">
+        <h3>Langues</h3>
+        <ul><li>Anglais : niveau scolaire</li><li>Espagnol : A2</li></ul>
+      </div>
+      <div class="cv-block">
+        <h3>Savoir-être</h3>
+        <ul><li>Sens de la communication</li><li>Capacité d'adaptation et d'analyse</li><li>Travail en équipe</li></ul>
+      </div>
+    </div>
+    <div class="cv-side">
+      <div class="cv-block">
+        <h3>Formation</h3>
+        <div class="xp"><span class="when">2025 – 2027</span><div><h4>BTS SIO option SISR</h4><span class="where">Lycée Saint-John Perse, Pau</span></div></div>
+        <div class="xp"><span class="when">2023</span><div><h4>Bac Professionnel commerce</h4><span class="where">Lycée Paul-Bert</span></div></div>
+      </div>
+      <div class="cv-block">
+        <h3>Expériences</h3>
+        <div class="xp"><span class="when">mai – juin 2026</span><div><h4>Stage systèmes et réseaux</h4><span class="where">Institut Saint Dominique, Pau</span></div>
+          <ul><li>Déploiement et intégration de postes sous Active Directory et IACA</li><li>Configuration réseau : NAT sur le pare-feu, réservations DHCP, brassage inter-VLAN</li><li>Automatisation des configurations système par script batch</li><li>Maintenance du parc et gestion du serveur d'impression</li></ul></div>
+        <div class="xp"><span class="when">2026</span><div><h4>Projet personnel TauxPilot</h4><span class="where">Application web en production sur tauxpilot.fr</span></div>
+          <ul><li>Hébergement sur VM Debian, services Docker, reverse proxy HTTPS</li><li>Frontend Next.js, API FastAPI, base PostgreSQL</li></ul></div>
+        <div class="xp"><span class="when">2024 – 2027</span><div><h4>Préparateur drive (job étudiant)</h4><span class="where">Intermarché</span></div>
+          <ul><li>Préparation et contrôle qualité des commandes, accueil des clients</li><li>Travail en équipe</li></ul></div>
+        <div class="xp"><span class="when">2024</span><div><h4>Service civique</h4><span class="where">France Travail</span></div>
+          <ul><li>Accompagnement des usagers sur les outils numériques (PC, imprimante, scanner)</li></ul></div>
+      </div>
+      <div class="cv-block">
+        <h3>Centres d'intérêt</h3>
+        <p class="muted">Tennis (10 ans), football, montage de PC, montage vidéo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STAGES ============ -->
+<section class="view" data-view="stages" data-nav-parent="stages" hidden>
+  <div class="page-head">
+    <span class="eyebrow">Stages</span>
+    <h1>Stage de 1re année : Institut Saint Dominique</h1>
+    <p>Du 25 mai au 26 juin 2026 (5 semaines), au sein du service informatique d'un établissement scolaire privé de Pau, de la maternelle au Bac +3.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card"><span class="eyebrow">Organisation</span><p>Établissement privé sous contrat d'association avec l'État, géré avec l'OGEC. Plus de <strong>2 200 utilisateurs</strong> : élèves, enseignants, personnel administratif et direction.</p></div>
+    <div class="card"><span class="eyebrow">Encadrement</span><p>L'administrateur informatique de l'établissement, tuteur de stage, et son assistant informatique.</p></div>
+    <div class="card"><span class="eyebrow">Enjeux RGPD</span><p>Données scolaires (Charlemagne) et paie / RH (Gesper RH) très sensibles : réseau administratif totalement séparé du réseau pédagogique, aucun droit administrateur local pour les usagers.</p></div>
+  </div>
+
+  <div class="sec">
+    <h2>Architecture du réseau</h2>
+    <div class="arch">
+      <div><b>Cœur de réseau</b><span>Pare-feu de bordure fibre, pile de commutateurs Allied Telesis</span></div>
+      <div><b>VLAN pédagogique</b><span>Salles Info 1 à 5, classes mobiles, contrôleur de domaine, IACA</span></div>
+      <div><b>VLAN administratif</b><span>Direction, secrétariat, Charlemagne, Gesper RH. Étanche</span></div>
+      <div><b>VLAN imprimantes</b><span>Serveur d'impression dédié</span></div>
+      <div><b>Wi-Fi</b><span>Bornes Allied Telesis tri-bandes</span></div>
+      <div><b>Sauvegarde</b><span>NAS QNAP placé dans un autre bâtiment</span></div>
+    </div>
+    <p class="muted" style="font-size:.88rem">Les adresses IP et les noms des personnes ont été retirés volontairement.</p>
+  </div>
+
+  <div class="sec">
+    <h2>Fiches de réalisation</h2>
+    <div class="grid">
+      <a class="card" href="#r-salle-info"><span class="meta">Stage · R1</span><h3>Renouvellement et automatisation de la salle Info 1</h3><p>Remplacement des 36 postes, script batch de configuration, jonction au domaine et paramétrage IACA.</p><div class="chips"><span class="chip c">Patrimoine</span><span class="chip c">Mise à disposition</span></div><span class="go">Lire la fiche →</span></a>
+      <a class="card" href="#r-reseau"><span class="meta">Stage · R2</span><h3>Règle NAT pour Veyon, brassage VLAN et dépannage réseau</h3><p>Réservation DHCP et redirection de port, correction d'un poste branché sur le mauvais VLAN, pannes RJ45.</p><div class="chips"><span class="chip c">Incidents</span><span class="chip c">Mise à disposition</span></div><span class="go">Lire la fiche →</span></a>
+      <a class="card" href="#r-impression"><span class="meta">Stage · R3</span><h3>Serveur d'impression et incident au CDI</h3><p>Nouvelles files d'impression, pilotes PCL6, correction du chemin UNC dans IACA, inventaire STUDIUM.</p><div class="chips"><span class="chip c">Incidents</span><span class="chip c">Patrimoine</span><span class="chip c">Mise à disposition</span></div><span class="go">Lire la fiche →</span></a>
+      <a class="card" href="#r-suite"><span class="meta">Stage · R4</span><h3>Étude de La Suite Numérique pour l'établissement</h3><p>Faisabilité d'une suite collaborative souveraine : Nextcloud, Collabora, Tchap. Préconisation d'un modèle hybride.</p><div class="chips"><span class="chip c">Développement pro</span><span class="chip c">Patrimoine</span></div><span class="go">Lire la fiche →</span></a>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Stage de 2e année</h2>
+    <div class="card"><p>Du 4 janvier au 19 février 2027 (7 semaines), en administration systèmes, réseaux, support et cybersécurité. Cette partie sera complétée pendant le stage.</p></div>
+  </div>
+</section>
+
+<!-- ============ FICHE R1 ============ -->
+<section class="view" data-view="r-salle-info" data-nav-parent="stages" hidden>
+  <nav class="crumb" aria-label="Fil d'Ariane"><a href="#stages">Stages</a><span>/</span><span>R1</span></nav>
+  <div class="page-head"><span class="eyebrow">Réalisation professionnelle · R1</span><h1>Renouvellement et automatisation de la salle Info 1</h1></div>
+  <div class="fiche">
+    <aside class="fiche-aside">
+      <div class="kv"><span>Période</span><b>Mai – juin 2026</b></div>
+      <div class="kv"><span>Cadre</span><b>Stage, Institut Saint Dominique</b></div>
+      <div class="kv"><span>Travail</span><b>En binôme avec le service informatique</b></div>
+      <div class="kv"><span>Compétences</span><div class="chips"><span class="chip c">Gérer le patrimoine</span><span class="chip c">Mettre à disposition</span></div></div>
+    </aside>
+    <div class="fiche-body">
+      <div class="blk"><h3>Contexte et besoin</h3><p>La salle informatique Info 1 accueille des cours toute l'année. Ses 36 postes étaient en fin de vie et devaient être remplacés avant le nouveau cycle pédagogique, sans bloquer les cours plus longtemps que nécessaire.</p></div>
+      <div class="blk"><h3>Objectifs et contraintes</h3><ul><li>Remplacer et configurer 36 postes de manière identique.</li><li>Les intégrer au domaine pédagogique avec les bons droits de sécurité.</li><li>Gagner du temps sur les réglages répétitifs.</li><li>Gérer la mise au rebut et le recyclage des anciens postes.</li></ul></div>
+      <div class="blk"><h3>Environnement</h3><div class="stack"><span>Windows</span><span>Active Directory</span><span>IACA</span><span>Script batch (.bat)</span><span>Windows Update</span></div></div>
+      <div class="blk"><h3>Ma contribution</h3><ul><li>J'ai manipulé et trié les <strong>72 PC</strong> (36 neufs, 36 anciens) et préparé la mise au rebut.</li><li>J'ai <strong>écrit et exécuté le script batch</strong> qui applique les réglages système sur chaque poste.</li><li>J'ai joint les postes au domaine PÉDAGOGIQUE et paramétré le sous-parc dans la console IACA.</li></ul></div>
+      <div class="blk"><h3>Démarche</h3><ol><li>Relever les réglages faits à la main sur un premier poste.</li><li>Les traduire en commandes et les tester sur un seul poste.</li><li>Lancer le script poste par poste, puis Windows Update.</li><li>Joindre au domaine, ranger les postes dans IACA, vérifier une session élève.</li></ol></div>
+      <div class="blk"><h3>Extrait du script</h3>
+        <div class="code"><div class="fn">config_poste.bat</div><pre><span class="cm">:: Désactivation de l'UAC</span>
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 0 /f
+
+<span class="cm">:: Suppression de la mise en veille (écran et système)</span>
+powercfg /change standby-timeout-ac 0
+powercfg /change monitor-timeout-ac 0
+
+<span class="cm">:: Réinitialisation du mot de passe du compte local "user"</span>
+net user user ""
+
+<span class="cm">:: Ouverture de Windows Update</span>
+start ms-settings:windowsupdate
+pause</pre></div>
+        <p class="muted" style="font-size:.9rem">Ces réglages servent uniquement pendant la préparation. La sécurité des sessions est ensuite gérée par le domaine et IACA.</p>
+      </div>
+      <div class="blk"><h3>Résultat</h3><p>Les 36 postes sont configurés de façon identique, joints au domaine et gérés depuis IACA. Le script a évité de répéter les mêmes réglages à la main sur chaque machine.</p></div>
+      <div class="blk"><h3>Compétences mobilisées</h3>
+        <div class="proof-sentence"><b>Gérer le patrimoine informatique</b>J'ai remplacé et recensé les postes de la salle Info 1 et organisé la mise au rebut des anciens afin de renouveler le parc. Le résultat est vérifiable par la liste des postes dans la console IACA.</div>
+        <div class="proof-sentence"><b>Mettre à disposition un service</b>J'ai déployé et testé les nouveaux postes avant la reprise des cours. Le script et la session élève testée en sont la preuve, car j'ai vérifié le service avant de le livrer aux utilisateurs.</div>
+      </div>
+      <div class="blk"><h3>Preuves</h3><div class="todo">Capture recadrée de la console IACA montrant le sous-parc Info 1 (noms anonymisés).</div><div class="todo">Photo de la salle ou des postes en cours d'installation, si l'établissement l'autorise.</div></div>
+      <div class="blk"><h3>Bilan réflexif</h3><p>J'ai appris qu'un script fait gagner beaucoup de temps dès qu'une tâche se répète. Avec le recul, désactiver l'UAC et vider le mot de passe local affaiblissent la sécurité : je remettrais ces réglages en fin de préparation, ou j'utiliserais une GPO plutôt qu'un script local.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FICHE R2 ============ -->
+<section class="view" data-view="r-reseau" data-nav-parent="stages" hidden>
+  <nav class="crumb" aria-label="Fil d'Ariane"><a href="#stages">Stages</a><span>/</span><span>R2</span></nav>
+  <div class="page-head"><span class="eyebrow">Réalisation professionnelle · R2</span><h1>Règle NAT pour Veyon, brassage VLAN et dépannage réseau</h1></div>
+  <div class="fiche">
+    <aside class="fiche-aside">
+      <div class="kv"><span>Période</span><b>Mai – juin 2026</b></div>
+      <div class="kv"><span>Cadre</span><b>Stage, Institut Saint Dominique</b></div>
+      <div class="kv"><span>Travail</span><b>Sous la supervision du tuteur</b></div>
+      <div class="kv"><span>Compétences</span><div class="chips"><span class="chip c">Incidents</span><span class="chip c">Mettre à disposition</span></div></div>
+    </aside>
+    <div class="fiche-body">
+      <div class="blk"><h3>Contexte et besoin</h3><p>Les enseignants utilisent <strong>Veyon</strong> pour superviser les écrans des élèves. Il fallait rendre cet outil joignable à travers le pare-feu. En parallèle, un poste administratif avait été branché par erreur sur le réseau pédagogique, et des postes de la salle Info 2 n'avaient plus de réseau.</p></div>
+      <div class="blk"><h3>Objectifs et contraintes</h3><ul><li>Ouvrir uniquement le flux nécessaire à Veyon.</li><li>Respecter l'étanchéité entre le VLAN administratif et le VLAN pédagogique (RGPD).</li><li>Rétablir rapidement le réseau en salle Info 2.</li></ul></div>
+      <div class="blk"><h3>Environnement</h3><div class="stack"><span>Pare-feu de bordure</span><span>DHCP</span><span>Commutateurs Allied Telesis</span><span>Alcatel-Lucent OmniSwitch</span><span>VLAN 3 / 4</span><span>Veyon</span><span>RJ45</span></div></div>
+      <div class="blk"><h3>Ma contribution</h3><ul><li>J'ai créé une <strong>réservation d'adresse IP</strong> dans la plage DHCP pour le poste concerné.</li><li>J'ai créé la <strong>règle NAT</strong> (redirection de port) sur le pare-feu.</li><li>J'ai identifié le poste administratif mal raccordé et je l'ai <strong>rebrassé</strong> du VLAN pédagogique vers le VLAN administratif au sous-répartiteur.</li><li>J'ai diagnostiqué et réparé les pannes de câblage en salle Info 2.</li></ul></div>
+      <div class="blk"><h3>Démarche</h3><ol><li>Fixer l'adresse du poste par réservation DHCP, sinon la règle NAT casse au prochain bail.</li><li>Créer la redirection limitée au port de Veyon.</li><li>Pour le poste mal raccordé : constater qu'il reçoit une adresse du mauvais réseau, suivre le câble jusqu'au sous-répartiteur, changer de port.</li><li>Pour Info 2 : tester la carte réseau, puis la prise, puis le câble, jusqu'à trouver l'élément défaillant.</li></ol></div>
+      <div class="blk"><h3>Résultat</h3><ul><li>Veyon fonctionne à travers le pare-feu.</li><li>Le poste administratif reçoit à nouveau une adresse du VLAN administratif et accède à ses applications.</li><li>Les postes d'Info 2 ont retrouvé le réseau.</li></ul></div>
+      <div class="blk"><h3>Compétences mobilisées</h3>
+        <div class="proof-sentence"><b>Répondre aux incidents</b>J'ai diagnostiqué la perte de réseau en Info 2 et l'erreur de VLAN à partir des tests de configuration IP afin de rétablir le service. Le résultat est vérifiable par la commande ipconfig avant et après l'intervention.</div>
+        <div class="proof-sentence"><b>Mettre à disposition un service</b>J'ai rendu Veyon accessible aux enseignants grâce à une réservation DHCP et une règle NAT, puis j'ai testé la prise de contrôle d'un poste. La capture de la règle (adresses masquées) en est la preuve.</div>
+      </div>
+      <div class="blk"><h3>Preuves</h3><div class="todo">Capture de la règle NAT avec les adresses masquées.</div><div class="todo">Résultat d'ipconfig avant et après le rebrassage (adresses masquées).</div></div>
+      <div class="blk"><h3>Bilan réflexif</h3><p>J'ai compris concrètement pourquoi on sépare les réseaux : un simple câble sur le mauvais port suffit à mettre des données sensibles du mauvais côté. La prochaine fois, je documenterais chaque rebrassage dans le plan de brassage au moment même où je le fais.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FICHE R3 ============ -->
+<section class="view" data-view="r-impression" data-nav-parent="stages" hidden>
+  <nav class="crumb" aria-label="Fil d'Ariane"><a href="#stages">Stages</a><span>/</span><span>R3</span></nav>
+  <div class="page-head"><span class="eyebrow">Réalisation professionnelle · R3</span><h1>Serveur d'impression et incident au CDI</h1></div>
+  <div class="fiche">
+    <aside class="fiche-aside">
+      <div class="kv"><span>Période</span><b>Mai – juin 2026</b></div>
+      <div class="kv"><span>Cadre</span><b>Stage, Institut Saint Dominique</b></div>
+      <div class="kv"><span>Travail</span><b>Individuel, validé par le tuteur</b></div>
+      <div class="kv"><span>Compétences</span><div class="chips"><span class="chip c">Incidents</span><span class="chip c">Patrimoine</span><span class="chip c">Mettre à disposition</span></div></div>
+    </aside>
+    <div class="fiche-body">
+      <div class="blk"><h3>Contexte et besoin</h3><p>L'établissement partage ses imprimantes via un serveur d'impression dédié. De nouveaux copieurs devaient être mis en service et, au CDI, les élèves et les professeurs ne trouvaient plus l'imprimante dans leur session.</p></div>
+      <div class="blk"><h3>Objectifs et contraintes</h3><ul><li>Déclarer les nouvelles imprimantes sur le serveur.</li><li>Rétablir le mappage automatique de l'imprimante du CDI.</li><li>Tenir l'inventaire du parc à jour.</li></ul></div>
+      <div class="blk"><h3>Environnement</h3><div class="stack"><span>Serveur d'impression Windows</span><span>Pilotes PCL6 64 bits</span><span>Sharp MX-C428P / B427PW</span><span>IACA</span><span>STUDIUM</span></div></div>
+      <div class="blk"><h3>Ma contribution</h3><ul><li>J'ai attribué des <strong>adresses IP fixes</strong> aux imprimantes et créé les <strong>files d'impression</strong> sur le serveur.</li><li>J'ai installé les pilotes PCL6 64 bits.</li><li>J'ai trouvé et <strong>corrigé le chemin UNC</strong> erroné dans la console IACA, ce qui a rétabli l'imprimante du CDI.</li><li>J'ai participé à l'audit et à l'inventaire du parc avec STUDIUM.</li></ul></div>
+      <div class="blk"><h3>Démarche</h3><ol><li>Reproduire le problème en ouvrant une session élève au CDI.</li><li>Vérifier que la file existe et fonctionne sur le serveur.</li><li>Comparer le chemin déclaré dans IACA avec le vrai nom de partage.</li><li>Corriger le chemin, rouvrir une session, imprimer une page de test.</li></ol></div>
+      <div class="blk"><h3>Résultat</h3><p>L'imprimante du CDI apparaît de nouveau automatiquement dans les sessions élèves et professeurs. Les nouvelles imprimantes sont en service et inventoriées.</p></div>
+      <div class="blk"><h3>Compétences mobilisées</h3>
+        <div class="proof-sentence"><b>Répondre aux incidents</b>J'ai diagnostiqué l'absence d'imprimante au CDI en comparant le chemin UNC déclaré dans IACA au partage réel, afin de rétablir l'impression. La page de test imprimée depuis une session élève le prouve.</div>
+        <div class="proof-sentence"><b>Gérer le patrimoine informatique</b>J'ai mis à jour l'inventaire des imprimantes avec STUDIUM. L'extrait anonymisé de l'inventaire en est la preuve.</div>
+        <div class="proof-sentence"><b>Mettre à disposition un service</b>J'ai créé et testé les nouvelles files d'impression avant de les ouvrir aux utilisateurs.</div>
+      </div>
+      <div class="blk"><h3>Preuves</h3><div class="todo">Capture du chemin UNC corrigé dans IACA (noms anonymisés).</div><div class="todo">Capture de la liste des files d'impression sur le serveur.</div></div>
+      <div class="blk"><h3>Bilan réflexif</h3><p>Une seule faute dans un chemin réseau suffit à priver toute une salle d'impression. J'ai appris à suivre le chemin complet, de la session jusqu'au serveur, plutôt que de réinstaller au hasard.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FICHE R4 ============ -->
+<section class="view" data-view="r-suite" data-nav-parent="stages" hidden>
+  <nav class="crumb" aria-label="Fil d'Ariane"><a href="#stages">Stages</a><span>/</span><span>R4</span></nav>
+  <div class="page-head"><span class="eyebrow">Réalisation professionnelle · R4</span><h1>Étude de La Suite Numérique pour l'établissement</h1></div>
+  <div class="fiche">
+    <aside class="fiche-aside">
+      <div class="kv"><span>Période</span><b>Juin 2026</b></div>
+      <div class="kv"><span>Cadre</span><b>Stage, étude prospective</b></div>
+      <div class="kv"><span>Travail</span><b>Individuel</b></div>
+      <div class="kv"><span>Compétences</span><div class="chips"><span class="chip c">Développement pro</span><span class="chip c">Patrimoine</span></div></div>
+    </aside>
+    <div class="fiche-body">
+      <div class="blk"><h3>Contexte et besoin</h3><p>L'établissement s'interroge sur ses outils collaboratifs. La DINUM propose <strong>La Suite Numérique</strong>, un ensemble d'outils open source et souverains. Il fallait savoir si une partie pouvait convenir à l'établissement.</p></div>
+      <div class="blk"><h3>Briques étudiées</h3><div class="arch"><div><b>Nextcloud</b><span>Stockage et partage de fichiers</span></div><div><b>Collabora / CryptPad</b><span>Co-édition en ligne sécurisée</span></div><div><b>Tchap</b><span>Messagerie chiffrée (protocole Matrix)</span></div></div></div>
+      <div class="blk"><h3>Ma contribution</h3><ul><li>J'ai recherché et comparé les briques de la suite.</li><li>J'ai analysé les garanties RGPD et de souveraineté face au Cloud Act.</li><li>J'ai évalué les économies de licences et les difficultés d'interopérabilité avec IACA et Charlemagne.</li><li>J'ai rédigé une préconisation.</li></ul></div>
+      <div class="blk"><h3>Résultat</h3><p>Préconisation d'un <strong>modèle hybride</strong> : adopter les briques souveraines là où elles ne gênent pas les logiciels métiers, et garder l'existant là où l'interopérabilité n'est pas assurée.</p></div>
+      <div class="blk"><h3>Compétences mobilisées</h3>
+        <div class="proof-sentence"><b>Organiser son développement professionnel</b>J'ai mené une veille sur une offre publique récente afin d'éclairer un choix d'outils. Le document d'étude en est la preuve.</div>
+        <div class="proof-sentence"><b>Gérer le patrimoine informatique</b>J'ai mis en regard les licences actuelles et les solutions libres, ce qui relève du suivi du patrimoine logiciel.</div>
+      </div>
+      <div class="blk"><h3>Preuves</h3><div class="todo">Lien ou PDF de l'étude La Suite Numérique.</div></div>
+      <div class="blk"><h3>Bilan réflexif</h3><p>Un outil open source ne se choisit pas seulement pour son prix : la compatibilité avec les logiciels déjà en place compte autant. La suite logique serait un test pilote de Nextcloud sur un petit groupe d'enseignants.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ATELIERS ============ -->
+<section class="view" data-view="ateliers" data-nav-parent="ateliers" hidden>
+  <div class="page-head">
+    <span class="eyebrow">Ateliers Pro</span>
+    <h1>Réalisations en formation et projets</h1>
+    <p>Une fiche par réalisation : contexte, besoin, contribution personnelle, démarche, résultat, compétences et preuves.</p>
+  </div>
+  <div class="grid">
+    <a class="card" href="#r-tauxpilot"><span class="meta">Projet personnel · A1</span><h3>TauxPilot : conception et mise en production d'une application web</h3><p>Comparateur de livrets d'épargne et d'alertes de fin de taux promotionnel, hébergé sur une VM Debian avec Docker et HTTPS.</p><div class="chips"><span class="chip c">Présence en ligne</span><span class="chip c">Mode projet</span><span class="chip c">Mise à disposition</span><span class="chip c">Développement pro</span></div><span class="go">Lire la fiche →</span></a>
+  </div>
+</section>
+
+<!-- ============ FICHE TAUXPILOT ============ -->
+<section class="view" data-view="r-tauxpilot" data-nav-parent="ateliers" hidden>
+  <nav class="crumb" aria-label="Fil d'Ariane"><a href="#ateliers">Ateliers Pro</a><span>/</span><span>A1</span></nav>
+  <div class="page-head"><span class="eyebrow">Réalisation professionnelle · A1</span><h1>TauxPilot : conception et mise en production d'une application web</h1></div>
+  <div class="fiche">
+    <aside class="fiche-aside">
+      <div class="kv"><span>Période</span><b>Septembre – octobre 2026</b></div>
+      <div class="kv"><span>Cadre</span><b>Projet personnel</b></div>
+      <div class="kv"><span>Travail</span><b>Individuel, avec assistants IA de développement</b></div>
+      <div class="kv"><span>En ligne</span><b><a href="https://tauxpilot.fr" target="_blank" rel="noopener">tauxpilot.fr</a></b></div>
+      <div class="kv"><span>Compétences</span><div class="chips"><span class="chip c">Présence en ligne</span><span class="chip c">Mode projet</span><span class="chip c">Mise à disposition</span><span class="chip c">Développement pro</span></div></div>
+    </aside>
+    <div class="fiche-body">
+      <div class="blk"><h3>Contexte et besoin</h3><p>Les banques proposent des taux boostés sur leurs livrets pendant quelques mois. Beaucoup d'épargnants oublient la date de fin et perdent du rendement. <strong>TauxPilot</strong> compare les offres selon une somme donnée et prévient l'utilisateur avant la fin de la promotion.</p></div>
+      <div class="blk"><h3>Objectifs et contraintes</h3><ul><li>Mettre en ligne un service réel, accessible en HTTPS sur un nom de domaine.</li><li>Protéger les comptes utilisateurs (mots de passe, cookies, routes d'administration).</li><li>N'exposer sur Internet que le strict nécessaire.</li><li>Préparer la conformité RGPD avant d'ouvrir le service plus largement.</li></ul></div>
+      <div class="blk"><h3>Architecture</h3>
+        <div class="arch"><div><b>Caddy</b><span>Reverse proxy HTTPS, seul service exposé (80/443)</span></div><div><b>Next.js</b><span>Interface web en TypeScript</span></div><div><b>FastAPI</b><span>API Python : calculs, comptes</span></div><div><b>Worker</b><span>Tâches de fond, alertes e-mail</span></div><div><b>PostgreSQL 17</b><span>Offres et comptes, non exposé</span></div></div>
+        <div class="stack"><span>Debian 13 (VM)</span><span>Docker Compose</span><span>Alembic</span><span>Git</span><span>Brevo (e-mails)</span><span>OVHcloud (domaine)</span></div>
+      </div>
+      <div class="blk"><h3>Ma contribution</h3><ul><li>J'ai installé la VM Debian et organisé l'application en <strong>services Docker</strong> séparés.</li><li>J'ai configuré le <strong>reverse proxy Caddy</strong> avec HTTPS et la redirection du sous-domaine www.</li><li>J'ai acheté et paramétré le nom de domaine, puis l'envoi d'e-mails transactionnels.</li><li>J'ai mis en place l'authentification : inscription, vérification d'e-mail, réinitialisation du mot de passe, mots de passe hachés (bcrypt), cookie HttpOnly / Secure.</li><li>J'ai écrit la documentation du projet, un journal de reprise et une charte graphique.</li><li>J'ai piloté des assistants IA de développement en relisant et en testant ce qu'ils produisaient.</li></ul></div>
+      <div class="blk"><h3>Démarche</h3><ol><li>Rédiger l'idée et le plan du MVP (produit minimum).</li><li>Monter l'infrastructure, puis le backend, la base, le frontend.</li><li>Sécuriser : base et API non exposées, routes admin protégées, pare-feu.</li><li>Ajouter un contrôle de santé qui interroge réellement la base (réponse 200 ou 503).</li><li>Garder une sauvegarde de chaque image déployée pour pouvoir revenir en arrière.</li><li>Faire auditer les calculs, ce qui a révélé trois erreurs, corrigées et testées dans une copie isolée (85 tests passants).</li></ol></div>
+      <div class="blk"><h3>Résultat</h3><p>Le site est en ligne sur tauxpilot.fr en HTTPS, avec comptes utilisateurs, comparateur et alertes. Les services internes ne sont pas joignables depuis Internet.</p></div>
+      <div class="blk"><h3>Compétences mobilisées</h3>
+        <div class="proof-sentence"><b>Développer la présence en ligne</b>J'ai publié un site sur un nom de domaine avec HTTPS et des e-mails à l'image du service. Le site public et son certificat sont vérifiables par tous.</div>
+        <div class="proof-sentence"><b>Travailler en mode projet</b>J'ai planifié le MVP, suivi l'avancement dans un journal de reprise et versionné le code avec Git. Le journal et l'historique des commits en sont la preuve.</div>
+        <div class="proof-sentence"><b>Mettre à disposition un service</b>J'ai déployé l'application en conteneurs, ajouté un contrôle de santé et gardé des images de retour arrière. Le schéma d'architecture et la réponse du contrôle de santé le montrent.</div>
+        <div class="proof-sentence"><b>Organiser son développement professionnel</b>Je me suis autoformé à Docker, FastAPI, Next.js et au RGPD en dehors des cours.</div>
+      </div>
+      <div class="blk"><h3>Preuves</h3><div class="todo">Capture de la page d'accueil de tauxpilot.fr et du cadenas HTTPS.</div><div class="todo">Extrait du docker-compose.yml (sans secrets ni variables d'environnement).</div><div class="todo">Capture de l'historique Git ou d'un commit représentatif.</div></div>
+      <div class="blk"><h3>Bilan réflexif</h3><p>Ce projet m'a appris qu'un service en production demande plus que du code : sauvegardes, retour arrière, sécurité et documentation. L'audit des calculs m'a montré qu'il faut tester avant de déployer, et qu'un rapport d'agent IA n'est pas une vérification. La suite : déployer le correctif des calculs en suivant un plan de retour arrière, et rendre les règles du pare-feu persistantes.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VEILLE ============ -->
+<section class="view" data-view="veille" data-nav-parent="veille" hidden>
+  <div class="page-head">
+    <span class="eyebrow">Veille technologique 2026 – 2027</span>
+    <h1>NetDevOps : automatiser les infrastructures réseau</h1>
+    <p><strong>Problématique :</strong> comment les pratiques NetDevOps et des outils comme Ansible transforment-ils la gestion, le déploiement et la sécurisation des infrastructures réseau ?</p>
+  </div>
+
+  <div class="offer" style="max-width:560px">
+    <div class="offer-head"><span class="eyebrow">Dispositif</span><span class="pill">depuis le 13/10/2026</span></div>
+    <div class="offer-row"><span>Flux RSS suivis dans Feedly</span><strong>3</strong></div>
+    <div class="offer-row"><span>Alerte Google</span><strong class="t">1</strong></div>
+    <div class="offer-row"><span>Chaînes YouTube spécialisées</span><strong>2</strong></div>
+  </div>
+
+  <div class="sec">
+    <h2>Méthode</h2>
+    <div class="method">
+      <div class="pp"><span class="tag">PULL · je vais chercher</span><h3>Feedly et YouTube</h3><ul><li>Red Hat Blog : Ansible, automatisation, open source</li><li>Cisco Blogs : réseaux et exploitation</li><li>r/ansible : retours d'expérience</li><li>Chaînes Red Hat et Cisco</li></ul></div>
+      <div class="pp"><span class="tag">PUSH · l'information vient à moi</span><h3>Google Alertes</h3><ul><li>Requête avec plusieurs formulations reliées par OR</li><li>Envoi par e-mail, au maximum une fois par jour</li><li>Toutes langues et toutes régions</li></ul></div>
+      <div class="pp"><span class="tag">Vérifier</span><h3>Évaluer les sources</h3><ul><li>Sources officielles : fiables, parfois promotionnelles</li><li>Communauté : utile, à recouper</li><li>Une synthèse par IA n'est pas une preuve : je compare aux sources d'origine</li></ul></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Journal de veille</h2>
+    <div class="journal"><table>
+      <thead><tr><th>Semaine</th><th>Publication</th><th>Synthèse personnelle</th><th>Intérêt SISR</th></tr></thead>
+      <tbody>
+        <tr><td>S1 · 13/10/2026</td><td><a href="https://www.reddit.com/r/ansible/comments/1x41bbl/demo_lightwell_aap_automated_cicd_from_pr_to/" target="_blank" rel="noopener">Lightwell + AAP : CI/CD automatisé</a><br><span class="muted">r/ansible, 12/10/2026</span></td><td>Démonstration d'un déploiement avec tests, validation humaine et retour arrière via Ansible Automation Platform. Résultat déclaré par l'auteur, non vérifié de façon indépendante. L'exemple porte sur une application, pas sur des commutateurs.</td><td>Comprendre l'automatisation et la maîtrise des changements.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="muted" style="font-size:.9rem">Recoupement : <a href="https://docs.ansible.com/projects/ansible/13/network/index.html" target="_blank" rel="noopener">documentation Ansible Network Automation</a> · <a href="https://docs.ansible.com/automation-controller/4.4/html/userguide/workflow_templates.html" target="_blank" rel="noopener">workflows Automation Controller</a></p>
+  </div>
+
+  <div class="sec">
+    <h2>Ma routine</h2>
+    <ol class="steps">
+      <li><span><b>Chaque semaine</b> : lire Feedly, les alertes reçues et les chaînes suivies.</span></li>
+      <li><span><b>Choisir et vérifier</b> : retenir une publication utile et vérifier les faits importants.</span></li>
+      <li><span><b>Enregistrer</b> : rédiger 2 ou 3 lignes avec la source, la date et le lien.</span></li>
+      <li><span><b>Chaque mois</b> : faire le bilan et mettre à jour cette page.</span></li>
+    </ol>
+  </div>
+
+  <div class="sec">
+    <h2>Tendances et bilan</h2>
+    <div class="prose"><p>Les premières lectures montrent que l'automatisation réseau reprend les pratiques du développement : configuration décrite dans des fichiers versionnés, tests avant mise en production, validation humaine et retour arrière possible. Ce bilan sera complété chaque mois.</p></div>
+  </div>
+</section>
+
+<!-- ============ COMPÉTENCES ============ -->
+<section class="view" data-view="competences" data-nav-parent="competences" hidden>
+  <div class="page-head">
+    <span class="eyebrow">Bloc 1 · Support et mise à disposition de services informatiques</span>
+    <h1>Tableau des compétences</h1>
+    <p>Chaque compétence renvoie vers une réalisation et une preuve. Cliquez sur une colonne pour ouvrir la fiche.</p>
+  </div>
+
+  <div class="legend"><span><i class="dot full"></i>Compétence principale de la réalisation</span><span><i class="dot half"></i>Compétence mobilisée en appui</span></div>
+
+  <div class="matrix-box"><table class="matrix">
+    <thead><tr>
+      <th scope="col" style="text-align:left">Compétence</th>
+      <th scope="col"><a href="#r-salle-info">R1<br>Salle Info 1</a></th>
+      <th scope="col"><a href="#r-reseau">R2<br>NAT et VLAN</a></th>
+      <th scope="col"><a href="#r-impression">R3<br>Impression</a></th>
+      <th scope="col"><a href="#r-suite">R4<br>La Suite</a></th>
+      <th scope="col"><a href="#r-tauxpilot">A1<br>TauxPilot</a></th>
+      <th scope="col"><a href="#veille">Veille<br>NetDevOps</a></th>
+    </tr></thead>
+    <tbody>
+      <tr><th scope="row">Gérer le patrimoine informatique<small>Inventaire, droits, licences</small></th><td><i class="dot full" aria-label="principale"></i></td><td></td><td><i class="dot half" aria-label="en appui"></i></td><td><i class="dot half" aria-label="en appui"></i></td><td></td><td></td></tr>
+      <tr><th scope="row">Répondre aux incidents et aux demandes<small>Diagnostic, résolution</small></th><td></td><td><i class="dot full" aria-label="principale"></i></td><td><i class="dot full" aria-label="principale"></i></td><td></td><td></td><td></td></tr>
+      <tr><th scope="row">Développer la présence en ligne<small>Site, domaine, publication</small></th><td></td><td></td><td></td><td></td><td><i class="dot full" aria-label="principale"></i></td><td></td></tr>
+      <tr><th scope="row">Travailler en mode projet<small>Planification, suivi, Git</small></th><td></td><td></td><td></td><td></td><td><i class="dot full" aria-label="principale"></i></td><td></td></tr>
+      <tr><th scope="row">Mettre à disposition un service<small>Installation, tests, déploiement</small></th><td><i class="dot full" aria-label="principale"></i></td><td><i class="dot half" aria-label="en appui"></i></td><td><i class="dot half" aria-label="en appui"></i></td><td></td><td><i class="dot full" aria-label="principale"></i></td><td></td></tr>
+      <tr><th scope="row">Organiser son développement professionnel<small>Veille, autoformation</small></th><td></td><td></td><td></td><td><i class="dot full" aria-label="principale"></i></td><td><i class="dot half" aria-label="en appui"></i></td><td><i class="dot full" aria-label="principale"></i></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="comp-list">
+    <div class="comp"><div class="comp-head"><span class="n">C1</span><h3>Gérer le patrimoine informatique</h3></div><ul><li><a href="#r-salle-info">R1</a> : renouvellement et recensement des 36 postes dans IACA.</li><li><a href="#r-impression">R3</a> : inventaire des imprimantes avec STUDIUM.</li></ul></div>
+    <div class="comp"><div class="comp-head"><span class="n">C2</span><h3>Répondre aux incidents et aux demandes d'assistance</h3></div><ul><li><a href="#r-reseau">R2</a> : poste sur le mauvais VLAN, pannes réseau en Info 2.</li><li><a href="#r-impression">R3</a> : imprimante absente des sessions au CDI.</li></ul></div>
+    <div class="comp"><div class="comp-head"><span class="n">C3</span><h3>Développer la présence en ligne de l'organisation</h3></div><ul><li><a href="#r-tauxpilot">A1</a> : site public en HTTPS sur tauxpilot.fr, e-mails transactionnels.</li></ul></div>
+    <div class="comp"><div class="comp-head"><span class="n">C4</span><h3>Travailler en mode projet</h3></div><ul><li><a href="#r-tauxpilot">A1</a> : plan de MVP, journal de reprise, versionnement Git.</li></ul></div>
+    <div class="comp"><div class="comp-head"><span class="n">C5</span><h3>Mettre à disposition des utilisateurs un service informatique</h3></div><ul><li><a href="#r-salle-info">R1</a> : postes déployés et testés avant la reprise des cours.</li><li><a href="#r-reseau">R2</a> : accès à Veyon via NAT.</li><li><a href="#r-tauxpilot">A1</a> : déploiement en conteneurs avec contrôle de santé.</li></ul></div>
+    <div class="comp"><div class="comp-head"><span class="n">C6</span><h3>Organiser son développement professionnel</h3></div><ul><li><a href="#veille">Veille NetDevOps</a> : dispositif PULL / PUSH et journal.</li><li><a href="#r-suite">R4</a> : étude de La Suite Numérique.</li><li><a href="#r-tauxpilot">A1</a> : autoformation à Docker, FastAPI et Next.js.</li></ul></div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap"><span>Lyam Uhel-Veyret · BTS SIO SISR · Lycée Saint-John Perse, Pau</span><span>Portfolio E5, session 2027</span></div></footer>
+
+<script>
+(function(){
+  var views = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
+  var names = views.map(function(v){return v.getAttribute('data-view');});
+  var navLinks = document.querySelectorAll('[data-nav]');
+  var nav = document.getElementById('nav');
+  var menuBtn = document.getElementById('menuBtn');
+
+  function show(){
+    var h = (location.hash || '').replace('#','');
+    if (names.indexOf(h) === -1) h = 'accueil';
+    var parent = 'accueil';
+    views.forEach(function(v){
+      var on = v.getAttribute('data-view') === h;
+      v.hidden = !on;
+      if (on) parent = v.getAttribute('data-nav-parent');
+    });
+    navLinks.forEach(function(a){
+      if (a.getAttribute('data-nav') === parent) a.setAttribute('aria-current','page');
+      else a.removeAttribute('aria-current');
+    });
+    nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false');
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange', show);
+  show();
+
+  menuBtn.addEventListener('click', function(){
+    var o = nav.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', o ? 'true' : 'false');
+  });
+
+  var root = document.documentElement;
+  try { var saved = localStorage.getItem('lp-theme'); if (saved) root.setAttribute('data-theme', saved); } catch(e){}
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme') ||
+      (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('lp-theme', next); } catch(e){}
+  });
+
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      var txt = el.textContent;
+      function sel(){ var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(function(){ b.textContent = 'Copié'; }, sel);
+      } else sel();
+    });
+  });
+})();
+</script>
+</body>
+</html>
