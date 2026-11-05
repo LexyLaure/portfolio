@@ -11,146 +11,251 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 body{margin:0}img{max-width:100%}
-/* Layout : cockpit sombre façon TauxPilot. Barre de navigation fixe, une vue par rubrique,
-   la "trajectoire" vert → turquoise relie le parcours comme elle relie une offre à sa date de fin. */
+/* Interface TauxPilot (refonte du 04/11/2026) appliquée au portfolio :
+   - un paysage dessiné reste fixe derrière l'écran, un par rubrique ;
+   - la navigation est une « île » en verre qui flotte au-dessus (onglets en bas sur mobile) ;
+   - les cartes passent en verre « Cristal » : bords nets, fond éclairci ou assombri pour la lecture. */
 :root{
   --night:#07162D;      /* fond principal, bleu nuit */
-  --panel:#10233F;      /* cartes, bleu panneau */
-  --panel-2:#0B1C35;
-  --line:#243B5A;       /* bordures fines */
-  --ink:#F8FAFC;        /* texte principal */
-  --ink-2:#B8C4D6;      /* texte secondaire */
-  --ink-3:#8496AF;
-  --green:#18A66A;      /* action, gain */
-  --teal:#1CC8A0;       /* accent */
-  --green-soft:rgba(24,166,106,.14);
-  --teal-soft:rgba(28,200,160,.12);
-  --warn:#E0A44A;
-  --code-bg:#061127;
+  --panel:#10233F;      /* cartes opaques (repli) */
+  --panel-2:rgba(7,22,45,.42);
+  --line:rgba(255,255,255,.16);
+  --line-2:#243B5A;
+  --ink:#F8FAFC;
+  --ink-2:#C9D4E3;
+  --ink-3:#97A8BF;
+  --green:#18A66A;
+  --teal:#1CC8A0;
+  --green-soft:rgba(24,166,106,.18);
+  --teal-soft:rgba(28,200,160,.14);
+  --warn:#F0B45A;
+  --code-bg:rgba(4,13,30,.82);
+  /* Cristal (sombre) */
+  --cr-bg:rgba(7,22,45,.38);
+  --cr-hi:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,0) 40%);
+  --cr-border:rgba(255,255,255,.22);
+  --cr-filter:blur(1px) brightness(.62) saturate(150%);
+  --cr-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 0 0 1px rgba(255,255,255,.04),0 18px 40px -26px rgba(0,0,0,.8);
+  --cr-fallback:rgba(16,35,63,.92);
+  /* Navigation (sombre) */
+  --n-glass:rgba(7,22,45,.30); --n-line:rgba(255,255,255,.09); --n-hi:rgba(255,255,255,.07);
+  --n-fg:#F8FAFC; --n-mu:#B8C4D6; --n-panel:#10233F;
+  --topfade:rgba(7,22,45,.97); --topfade-0:rgba(7,22,45,0);
+  --veil:rgba(7,22,45,.35);
   --f-display:"Manrope","Inter",system-ui,sans-serif;
   --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
-  --r:10px;
+  --r:18px;
+  --nav-h:64px;
+  --spring:cubic-bezier(.3,1.32,.45,1); --spring-strong:cubic-bezier(.3,1.4,.5,1);
+  --isl-w:min(1240px,calc(100vw - 32px));
   color-scheme:dark;
 }
+@media (min-width:768px){:root{--nav-h:92px}}
 @media (prefers-color-scheme: light){
   :root:not([data-theme="dark"]){
-    --night:#F4F7FB; --panel:#FFFFFF; --panel-2:#EEF3F9; --line:#D5DEEA;
-    --ink:#07162D; --ink-2:#3E5170; --ink-3:#62738E;
-    --green:#12844F; --teal:#0E9C7C; --green-soft:rgba(18,132,79,.10); --teal-soft:rgba(14,156,124,.10);
-    --warn:#A86A12; --code-bg:#0B1C35; color-scheme:light;
+    --night:#E7EFF6; --panel:#FFFFFF; --panel-2:rgba(255,255,255,.72); --line:rgba(7,22,45,.12); --line-2:#D5DFE9;
+    --ink:#07162D; --ink-2:#33465F; --ink-3:#556883;
+    --green:#12844F; --teal:#0B8C70; --green-soft:rgba(18,132,79,.12); --teal-soft:rgba(14,156,124,.12);
+    --warn:#9A5F0C; --code-bg:rgba(11,28,53,.92);
+    --cr-bg:rgba(255,255,255,.34); --cr-hi:linear-gradient(135deg,rgba(255,255,255,.5),rgba(255,255,255,0) 45%);
+    --cr-border:rgba(255,255,255,.95); --cr-filter:blur(1px) brightness(1.06) saturate(115%);
+    --cr-shadow:inset 0 1px 0 #fff,0 18px 40px -26px rgba(7,22,45,.35); --cr-fallback:rgba(255,255,255,.9);
+    --n-glass:rgba(255,255,255,.38); --n-line:rgba(255,255,255,.7); --n-hi:rgba(255,255,255,.85);
+    --n-fg:#07162D; --n-mu:#4A5B72; --n-panel:#FFFFFF;
+    --topfade:rgba(226,238,248,.97); --topfade-0:rgba(226,238,248,0); --veil:rgba(248,250,252,.35);
+    color-scheme:light;
   }
 }
 :root[data-theme="light"]{
-  --night:#F4F7FB; --panel:#FFFFFF; --panel-2:#EEF3F9; --line:#D5DEEA;
-  --ink:#07162D; --ink-2:#3E5170; --ink-3:#62738E;
-  --green:#12844F; --teal:#0E9C7C; --green-soft:rgba(18,132,79,.10); --teal-soft:rgba(14,156,124,.10);
-  --warn:#A86A12; --code-bg:#0B1C35; color-scheme:light;
+  --night:#E7EFF6; --panel:#FFFFFF; --panel-2:rgba(255,255,255,.72); --line:rgba(7,22,45,.12); --line-2:#D5DFE9;
+  --ink:#07162D; --ink-2:#33465F; --ink-3:#556883;
+  --green:#12844F; --teal:#0B8C70; --green-soft:rgba(18,132,79,.12); --teal-soft:rgba(14,156,124,.12);
+  --warn:#9A5F0C; --code-bg:rgba(11,28,53,.92);
+  --cr-bg:rgba(255,255,255,.34); --cr-hi:linear-gradient(135deg,rgba(255,255,255,.5),rgba(255,255,255,0) 45%);
+  --cr-border:rgba(255,255,255,.95); --cr-filter:blur(1px) brightness(1.06) saturate(115%);
+  --cr-shadow:inset 0 1px 0 #fff,0 18px 40px -26px rgba(7,22,45,.35); --cr-fallback:rgba(255,255,255,.9);
+  --n-glass:rgba(255,255,255,.38); --n-line:rgba(255,255,255,.7); --n-hi:rgba(255,255,255,.85);
+  --n-fg:#07162D; --n-mu:#4A5B72; --n-panel:#FFFFFF;
+  --topfade:rgba(226,238,248,.97); --topfade-0:rgba(226,238,248,0); --veil:rgba(248,250,252,.35);
+  color-scheme:light;
 }
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{background:var(--night);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--night)}
+body{background:var(--night);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:var(--teal);text-underline-offset:3px}
-a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:8px}
 h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
 h1{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:800;letter-spacing:-.02em}
 h2{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:700;letter-spacing:-.01em}
 h3{font-size:1.2rem;font-weight:700}
 p{margin:0}
-.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
 .muted{color:var(--ink-2)}
 .prose{max-width:68ch;display:grid;gap:12px;color:var(--ink-2)}
 .prose strong{color:var(--ink)}
 
-/* Navigation */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--night) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;gap:20px;min-height:64px;flex-wrap:wrap;padding-block:8px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:var(--f-body);font-weight:700;font-size:1.15rem;letter-spacing:-.01em}
-.badge{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#18A66A,#1CC8A0);display:grid;place-items:center;flex:none}
-.brand b{color:var(--green);font-weight:700}
-.nav{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto}
-.nav a{color:var(--ink-2);text-decoration:none;font-size:.9rem;font-weight:500;padding:7px 11px;border-radius:7px}
-.nav a:hover{color:var(--ink);background:var(--panel)}
-.nav a[aria-current="page"]{color:var(--ink);background:var(--green-soft);box-shadow:inset 0 -2px 0 var(--green)}
-.theme-btn{background:transparent;border:1px solid var(--line);color:var(--ink-2);border-radius:7px;width:36px;height:34px;cursor:pointer;display:grid;place-items:center}
-.theme-btn:hover{color:var(--ink)}
-.menu-btn{display:none}
-@media (max-width:860px){
-  .menu-btn{display:grid;margin-left:auto}
-  .nav{display:none;width:100%;margin-left:0;padding-bottom:8px}
-  .nav.open{display:flex;flex-direction:column}
-  .nav a{padding:10px 12px}
+/* ---------- Paysage fixe (un par rubrique) ---------- */
+.scape{position:fixed;inset:0;z-index:0;pointer-events:none;user-select:none;overflow:hidden}
+.scape-layer{position:absolute;inset:0;transition:opacity .7s ease}
+.scape-layer svg{width:100%;height:100%;display:block}
+.scape-veil{position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,transparent 55%,var(--veil))}
+.topfade{position:fixed;inset:0 0 auto;z-index:20;height:calc(var(--nav-h) + 8px + env(safe-area-inset-top,0px));pointer-events:none;background:linear-gradient(180deg,var(--topfade) 62%,var(--topfade-0))}
+@media (max-width:767px){.topfade{height:calc(var(--nav-h) + env(safe-area-inset-top,0px))}}
+
+/* Animations des paysages (reprises de TauxPilot) */
+.tpl-tw{animation:tplTw 6s ease-in-out infinite}
+@keyframes tplTw{0%,100%{opacity:.25}50%{opacity:.95}}
+.tpl-breathe{animation:tplBreathe 14s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes tplBreathe{0%,100%{opacity:.25;transform:scaleX(.92)}50%{opacity:.55;transform:scaleX(1.06)}}
+.tpl-ripple{animation:tplRipple 18s ease-in-out infinite}
+@keyframes tplRipple{0%,100%{transform:translateX(-10px)}50%{transform:translateX(10px)}}
+.tpl-beam{animation:tplBeam 11s ease-in-out infinite;transform-box:view-box}
+@keyframes tplBeam{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(4deg)}}
+.tpl-wave{animation:tplWave 4.5s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes tplWave{0%{opacity:.5;transform:scale(.6)}100%{opacity:0;transform:scale(2.4)}}
+.tpl-pulse{animation:tplPulse 4.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes tplPulse{0%,100%{opacity:.25;transform:scale(.8)}20%{opacity:.9;transform:scale(1.25)}45%{opacity:.25;transform:scale(.8)}}
+.tpl-travel{animation:tplTravel 7s linear infinite}
+@keyframes tplTravel{from{stroke-dashoffset:0}to{stroke-dashoffset:-2200}}
+.tpl-drift{animation:tplDrift 26s ease-in-out infinite}
+@keyframes tplDrift{0%,100%{transform:translateX(-30px)}50%{transform:translateX(30px)}}
+.tpl-shoot{opacity:0;animation:tplShoot 16s linear infinite}
+@keyframes tplShoot{0%,90%{opacity:0;transform:translate(0,0)}92%{opacity:1}96%,100%{opacity:0;transform:translate(260px,100px)}}
+
+/* ---------- Verre ---------- */
+.glass{background:var(--n-glass);border:1px solid var(--n-line);backdrop-filter:blur(22px) saturate(170%);-webkit-backdrop-filter:blur(22px) saturate(170%);box-shadow:inset 0 1px 0 var(--n-hi),0 18px 40px -24px rgba(0,0,0,.65)}
+.cristal,.offer,.card,.cv-block,.fiche-aside,.comp,.pp,.proof-sentence,.matrix-box,.journal,.traj-box,.page-head.boxed{
+  background-color:var(--cr-bg);background-image:var(--cr-hi);border:1px solid var(--cr-border);
+  backdrop-filter:var(--cr-filter);-webkit-backdrop-filter:var(--cr-filter);box-shadow:var(--cr-shadow)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .glass,.cristal,.offer,.card,.cv-block,.fiche-aside,.comp,.pp,.proof-sentence,.matrix-box,.journal,.traj-box{background-color:var(--cr-fallback)}
 }
 
-/* Vues */
-main{padding-block:40px 72px}
-.view{display:grid;gap:40px;animation:fade .35s ease}
-@keyframes fade{from{transform:translateY(6px)}to{transform:none}}
+/* ---------- Navigation « île » (ordinateur) ---------- */
+.isl-wrap{position:fixed;inset:14px 0 auto;z-index:50;pointer-events:none;display:none}
+.isl-host{position:relative;margin:0 auto;width:var(--isl-w);pointer-events:auto}
+.island{position:relative;margin:0 auto;width:var(--isl-w);height:62px;border-radius:20px;overflow:hidden;
+  transition:width .62s var(--spring),height .62s var(--spring),border-radius .62s var(--spring),margin-top .5s ease}
+.island[data-state="compact"]{width:250px;height:46px;border-radius:23px;margin-top:6px}
+.layer{position:absolute;top:0;bottom:0;left:50%;display:flex;align-items:center;transform:translateX(-50%) scale(.94);opacity:0;filter:blur(6px);pointer-events:none;visibility:hidden;
+  transition:opacity .22s ease,filter .22s ease,transform .4s var(--spring),visibility 0s linear .22s}
+.island[data-state="full"] .layer-full,.island[data-state="compact"] .layer-compact{opacity:1;filter:none;transform:translateX(-50%) scale(1);pointer-events:auto;visibility:visible;
+  transition:opacity .22s ease .16s,filter .22s ease .16s,transform .4s var(--spring) .16s,visibility 0s}
+.layer-full{width:var(--isl-w);justify-content:space-between;gap:12px;padding:0 12px 0 16px}
+.layer-compact{width:250px;gap:10px;padding:0 14px 0 8px;color:var(--n-fg);font-weight:600;font-size:14px;white-space:nowrap}
+.layer-compact .dotlive{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px var(--teal-soft);margin-left:auto}
+.links{position:relative;display:flex;gap:2px;padding:4px;border-radius:12px;border:1px solid var(--n-line);background:color-mix(in srgb,var(--n-panel) 18%,transparent)}
+.link{position:relative;z-index:1;display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:8px;font-size:14px;font-weight:500;color:var(--n-mu);text-decoration:none;transition:color .3s;white-space:nowrap}
+.link svg{width:16px;height:16px;flex:none}
+.link:hover{color:var(--n-fg)}
+.link[aria-current="page"]{color:#fff;font-weight:600}
+.ind{position:absolute;top:4px;bottom:4px;left:4px;width:0;border-radius:8px;background:#18A66A;box-shadow:0 4px 14px -4px rgba(24,166,106,.7);transition:left .5s var(--spring-strong),width .5s var(--spring-strong),opacity .2s}
+@media (min-width:768px){.isl-wrap{display:block}}
+@media (min-width:768px) and (max-width:1100px){.link span{display:none}.link{padding:8px 11px}}
+
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--n-fg);font-weight:700;font-size:1.12rem;letter-spacing:-.01em;white-space:nowrap}
+.brand b{color:#18A66A;font-weight:700}
+.badge{width:34px;height:34px;flex:none}
+.round-btn{background:transparent;border:1px solid var(--n-line);color:var(--n-mu);border-radius:12px;width:40px;height:40px;cursor:pointer;display:grid;place-items:center;flex:none}
+.round-btn:hover{color:var(--n-fg)}
+
+/* ---------- Mobile : petite île en haut + barre d'onglets flottante ---------- */
+.m-top{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));inset-inline:0;z-index:50;display:flex;justify-content:center;pointer-events:none}
+.m-pill{pointer-events:auto;height:40px;border-radius:20px;display:flex;align-items:center;gap:8px;padding:0 14px 0 6px;color:var(--n-fg);font-weight:600;font-size:14px;text-decoration:none}
+.m-pill .badge{width:28px;height:28px}
+.m-theme{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));z-index:51;width:40px;height:40px;border-radius:20px}
+.tabbar-wrap{position:fixed;inset:auto 0 calc(12px + env(safe-area-inset-bottom,0px));z-index:50}
+.tabbar{position:relative;margin:0 12px;height:66px;border-radius:33px;display:flex;align-items:center;padding:0 4px;
+  transition:margin .55s var(--spring),height .55s var(--spring),border-radius .55s var(--spring)}
+.tabbar[data-state="compact"]{margin:0 max(12px,calc(50vw - 150px));height:52px;border-radius:26px}
+.tab{position:relative;z-index:1;flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:44px;color:var(--n-mu);font-size:10.5px;font-weight:500;text-decoration:none;transition:color .3s}
+.tab svg{width:20px;height:20px}
+.tab[aria-current="page"]{color:#fff;font-weight:600}
+.tab-label{max-height:14px;line-height:14px;overflow:hidden;white-space:nowrap;transition:max-height .35s ease,opacity .25s ease}
+.tabbar[data-state="compact"] .tab-label{max-height:0;opacity:0}
+.bubble{position:absolute;top:6px;bottom:6px;left:0;width:0;border-radius:27px;background:#18A66A;box-shadow:0 6px 16px -6px rgba(24,166,106,.8);transition:left .5s var(--spring-strong),width .5s var(--spring-strong)}
+@media (min-width:768px){.m-top,.m-theme,.tabbar-wrap{display:none}}
+
+/* ---------- Vues ---------- */
+.shell{position:relative;z-index:1}
+main{padding-top:calc(var(--nav-h) + env(safe-area-inset-top,0px) + 28px);padding-bottom:72px}
+@media (max-width:767px){main{padding-top:calc(var(--nav-h) + env(safe-area-inset-top,0px) + 8px);padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}}
+.view{display:grid;gap:40px;animation:fade .5s cubic-bezier(.16,1,.3,1)}
+@keyframes fade{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
 .page-head{display:grid;gap:12px;max-width:760px}
-.page-head p{color:var(--ink-2);font-size:1.05rem}
+.page-head p{color:var(--ink-2);font-size:1.05rem;text-shadow:0 1px 14px var(--night)}
+.page-head.boxed{max-width:none;border-radius:24px;padding:24px}
 
 /* Boutons */
 .btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;text-decoration:none;padding:11px 18px;border-radius:8px;border:1px solid transparent;cursor:pointer;font-family:inherit}
-.btn-main{background:var(--green);color:#fff}
-.btn-main:hover{background:var(--teal);color:#06261C}
-.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;text-decoration:none;padding:11px 20px;border-radius:999px;border:1px solid transparent;cursor:pointer;font-family:inherit}
+.btn-main{background:#18A66A;color:#fff;box-shadow:0 10px 24px -12px rgba(24,166,106,.9)}
+.btn-main:hover{background:#15965f}
+.btn-ghost{color:var(--ink);background-color:var(--cr-bg);border-color:var(--cr-border);backdrop-filter:var(--cr-filter);-webkit-backdrop-filter:var(--cr-filter)}
 .btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
 
 /* Hero */
-.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center}
-@media (max-width:860px){.hero{grid-template-columns:1fr}}
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center;min-height:min(62vh,560px)}
+@media (max-width:860px){.hero{grid-template-columns:1fr;min-height:0}}
 .hero-copy{display:grid;gap:18px}
-.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--green),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero .lead{font-size:1.1rem;color:var(--ink-2);max-width:56ch}
-.status{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--ink-2);border:1px solid var(--line);border-radius:6px;padding:6px 10px;width:fit-content}
-.status i{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px var(--teal-soft)}
+.hero h1{text-shadow:0 2px 24px var(--night)}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#18A66A,#1CC8A0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{font-size:1.1rem;color:var(--ink);max-width:56ch;text-shadow:0 1px 14px var(--night),0 0 2px var(--night)}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--ink);border-radius:999px;padding:6px 12px;width:fit-content}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px var(--teal-soft);animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(28,200,160,.6)}100%{box-shadow:0 0 0 10px rgba(28,200,160,0)}}
+.hero-copy .lead,.hero-copy .status{text-wrap:pretty}
+.lead-box{border-radius:20px;padding:18px 20px}
 
 /* Carte "offre" façon comparateur */
-.offer{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:grid;gap:16px}
+.offer{border-radius:24px;padding:22px;display:grid;gap:16px}
 .offer-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
 .offer-row:last-child{border-bottom:0;padding-bottom:0}
 .offer-row span{color:var(--ink-2);font-size:.9rem}
 .offer-row strong{font-family:var(--f-display);font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--green);white-space:nowrap}
 .offer-row strong.t{color:var(--teal)}
 .offer-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
-.pill{font-size:.75rem;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--green-soft);color:var(--green);white-space:nowrap}
+.pill{font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--green-soft);color:var(--green);white-space:nowrap}
 
-/* Trajectoire du parcours */
-.traj-box{background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r);padding:20px 8px 8px;overflow-x:auto}
+/* Trajectoire du parcours : chemin qui avance jusqu'au drapeau */
+.traj-box{border-radius:24px;padding:20px 8px 8px;overflow-x:auto}
 .traj-box svg{display:block;min-width:720px;width:100%;height:auto}
 .traj-lbl{font-family:var(--f-body);font-size:13px;font-weight:600;fill:var(--ink)}
 .traj-sub{font-family:var(--f-body);font-size:12px;fill:var(--ink-3)}
 .traj-yr{font-family:var(--f-mono);font-size:11.5px;fill:var(--teal)}
 .traj-path{stroke-dasharray:1400;stroke-dashoffset:0;animation:draw 1.6s ease-out}
 @keyframes draw{from{stroke-dashoffset:1400}to{stroke-dashoffset:0}}
+.traj-flow{stroke-dasharray:6 22;animation:flow 2.4s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-28}}
+.traj-now{transform-box:fill-box;transform-origin:center;animation:nowping 2.2s ease-out infinite}
+@keyframes nowping{from{transform:scale(1);opacity:.9}to{transform:scale(2.4);opacity:0}}
 
 /* Grilles de cartes */
 .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start;text-decoration:none;color:var(--ink);transition:border-color .2s,transform .2s}
-a.card:hover{border-color:var(--teal);transform:translateY(-2px)}
+.card{border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start;text-decoration:none;color:var(--ink);transition:border-color .25s,transform .35s var(--spring)}
+a.card:hover{border-color:var(--teal);transform:translateY(-3px)}
 .card p{color:var(--ink-2);font-size:.95rem}
 .card .meta{font-size:.8rem;color:var(--ink-3);font-family:var(--f-mono)}
 .card .go{color:var(--teal);font-weight:600;font-size:.9rem;margin-top:4px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-size:.75rem;font-weight:600;padding:3px 8px;border-radius:5px;border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.chip{font-size:.75rem;font-weight:600;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
 .chip.c{border-color:transparent;background:var(--teal-soft);color:var(--teal)}
 
 /* Section titrée */
 .sec{display:grid;gap:18px}
 .sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.sec-head h2{text-shadow:0 2px 18px var(--night)}
 
 /* CV */
 .cv{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:20px}
 @media (max-width:860px){.cv{grid-template-columns:1fr}}
 .cv-side{display:grid;gap:16px;align-content:start}
-.cv-block{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:12px;align-content:start}
-.cv-block h3{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-family:var(--f-body);font-weight:600}
+.cv-block{border-radius:var(--r);padding:20px;display:grid;gap:12px;align-content:start}
+.cv-block h3{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-family:var(--f-body);font-weight:700}
 .cv-block ul{margin:0;padding-left:18px;color:var(--ink-2);display:grid;gap:4px}
 .xp{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 16px;padding-block:12px;border-top:1px solid var(--line)}
 .xp:first-of-type{border-top:0;padding-top:0}
@@ -161,44 +266,45 @@ a.card:hover{border-color:var(--teal);transform:translateY(-2px)}
 @media (max-width:520px){.xp{grid-template-columns:1fr}.xp ul{grid-column:1}}
 .copy-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .copy-row code{font-family:var(--f-mono);font-size:.85rem;color:var(--ink);user-select:all;word-break:break-all}
-.mini-btn{font:inherit;font-size:.8rem;background:transparent;border:1px solid var(--line);color:var(--ink-2);border-radius:6px;padding:3px 9px;cursor:pointer}
+.mini-btn{font:inherit;font-size:.8rem;background:transparent;border:1px solid var(--line);color:var(--ink-2);border-radius:999px;padding:3px 10px;cursor:pointer}
 .mini-btn:hover{color:var(--teal);border-color:var(--teal)}
 
-/* Fiche de réalisation */
-.crumb{font-size:.88rem;color:var(--ink-3);display:flex;gap:8px;flex-wrap:wrap}
+/* Fiche de réalisation : mise en page B (panneau Cristal à gauche, contenu à droite) */
+.crumb{font-size:.88rem;color:var(--ink-2);display:flex;gap:8px;flex-wrap:wrap;width:fit-content;padding:5px 14px;border-radius:999px;background-color:var(--cr-bg);border:1px solid var(--cr-border);backdrop-filter:var(--cr-filter);-webkit-backdrop-filter:var(--cr-filter)}
 .crumb a{color:var(--ink-2);text-decoration:none}
 .crumb a:hover{color:var(--teal)}
-.fiche{display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px;align-items:start}
+.fiche{display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
 @media (max-width:860px){.fiche{grid-template-columns:1fr}}
-.fiche-aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);display:grid;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.fiche-aside{position:sticky;top:calc(var(--nav-h) + env(safe-area-inset-top,0px) + 8px);display:grid;gap:14px;border-radius:24px;padding:20px}
 @media (max-width:860px){.fiche-aside{position:static}}
 .kv{display:grid;gap:2px}
 .kv span{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
 .kv b{font-weight:500;font-size:.95rem}
-.fiche-body{display:grid;gap:30px;min-width:0}
+.fiche-body{display:grid;gap:22px;min-width:0;background-color:var(--cr-bg);background-image:var(--cr-hi);border:1px solid var(--cr-border);backdrop-filter:var(--cr-filter);-webkit-backdrop-filter:var(--cr-filter);box-shadow:var(--cr-shadow);border-radius:24px;padding:26px}
+@media (max-width:520px){.fiche-body{padding:18px}}
 .blk{display:grid;gap:10px}
 .blk h3{display:flex;align-items:center;gap:10px;font-size:1.1rem}
-.blk h3::before{content:"";width:14px;height:2px;background:var(--green);flex:none}
+.blk h3::before{content:"";width:16px;height:3px;border-radius:2px;background:linear-gradient(90deg,#18A66A,#1CC8A0);flex:none}
 .blk ul,.blk ol{margin:0;padding-left:20px;color:var(--ink-2);display:grid;gap:6px;max-width:72ch}
 .blk ul strong,.blk ol strong{color:var(--ink)}
 .blk > p{color:var(--ink-2);max-width:72ch}
-.proof-sentence{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;color:var(--ink-2);font-size:.95rem;display:grid;gap:6px}
+.proof-sentence{border-left:3px solid #18A66A!important;border-radius:14px;padding:14px 16px;color:var(--ink-2);font-size:.95rem;display:grid;gap:6px}
 .proof-sentence b{color:var(--teal);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
-.todo{border:1px dashed var(--warn);color:var(--warn);border-radius:var(--r);padding:12px 14px;font-size:.88rem;display:flex;gap:10px;align-items:flex-start}
-.todo::before{content:"À joindre";font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--warn);border-radius:4px;padding:1px 6px;flex:none;margin-top:2px}
-.code{background:var(--code-bg);border:1px solid var(--line);border-radius:var(--r);overflow-x:auto}
-.code .fn{font-family:var(--f-mono);font-size:.78rem;color:#8496AF;padding:8px 14px;border-bottom:1px solid #243B5A}
+.todo{border:1px dashed var(--warn);color:var(--warn);border-radius:14px;padding:12px 14px;font-size:.88rem;display:flex;gap:10px;align-items:flex-start;background:color-mix(in srgb,var(--warn) 8%,transparent)}
+.todo::before{content:"À joindre";font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--warn);border-radius:999px;padding:1px 8px;flex:none;margin-top:2px}
+.code{background:var(--code-bg);border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow-x:auto}
+.code .fn{font-family:var(--f-mono);font-size:.78rem;color:#97A8BF;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,.1)}
 .code pre{margin:0;padding:14px;font-family:var(--f-mono);font-size:.85rem;line-height:1.55;color:#E2E8F0}
 .code .cm{color:#5FD4B4}
 .stack{display:flex;flex-wrap:wrap;gap:6px}
-.stack span{font-family:var(--f-mono);font-size:.8rem;padding:4px 9px;border-radius:5px;background:var(--panel-2);border:1px solid var(--line);color:var(--ink-2)}
+.stack span{font-family:var(--f-mono);font-size:.8rem;padding:4px 10px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--ink-2)}
 .arch{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px}
-.arch div{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:12px;display:grid;gap:2px}
+.arch div{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:2px}
 .arch b{font-size:.92rem}
 .arch span{font-size:.82rem;color:var(--ink-3)}
 
 /* Matrice compétences */
-.matrix-box{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
+.matrix-box{overflow-x:auto;border-radius:var(--r)}
 table.matrix{border-collapse:collapse;width:100%;min-width:760px;font-size:.9rem}
 .matrix th,.matrix td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
 .matrix thead th{font-size:.78rem;font-weight:600;color:var(--ink-2);background:var(--panel-2);line-height:1.3}
@@ -208,62 +314,109 @@ table.matrix{border-collapse:collapse;width:100%;min-width:760px;font-size:.9rem
 .matrix tbody th small{display:block;color:var(--ink-3);font-weight:400;font-size:.78rem}
 .matrix tr:last-child th,.matrix tr:last-child td{border-bottom:0}
 .dot{display:inline-block;width:12px;height:12px;border-radius:50%}
-.dot.full{background:var(--green)}
+.dot.full{background:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
 .dot.half{border:2px solid var(--teal)}
 .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.85rem;color:var(--ink-2)}
 .legend span{display:inline-flex;align-items:center;gap:8px}
 .comp-list{display:grid;gap:14px}
-.comp{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px}
+.comp{border-radius:var(--r);padding:20px;display:grid;gap:10px}
 .comp-head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
 .comp-head .n{font-family:var(--f-mono);color:var(--teal);font-size:.85rem}
 .comp ul{margin:0;padding-left:20px;color:var(--ink-2);display:grid;gap:6px}
 
 /* Veille */
 .method{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
-.pp{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start}
+.pp{border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start}
 .pp .tag{font-family:var(--f-mono);font-size:.8rem;color:var(--teal)}
 .pp ul{margin:0;padding-left:18px;color:var(--ink-2);display:grid;gap:4px}
-.journal{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+.journal{overflow-x:auto;border-radius:var(--r)}
 .journal table{border-collapse:collapse;width:100%;min-width:640px;font-size:.9rem}
 .journal th,.journal td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.journal tr:last-child td{border-bottom:0}
 .journal th{background:var(--panel-2);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
-.journal td{color:var(--ink-2);background:var(--panel)}
+.journal td{color:var(--ink-2)}
 .journal td:first-child{font-family:var(--f-mono);color:var(--teal);white-space:nowrap}
 .steps{counter-reset:s;display:grid;gap:10px;margin:0;padding:0;list-style:none}
 .steps li{counter-increment:s;display:grid;grid-template-columns:32px minmax(0,1fr);gap:12px;color:var(--ink-2)}
-.steps li::before{content:counter(s);width:28px;height:28px;border-radius:7px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.steps li::before{content:counter(s);width:28px;height:28px;border-radius:999px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-weight:700;font-size:.85rem}
 .steps li b{color:var(--ink)}
 
-footer{border-top:1px solid var(--line);padding-block:24px;color:var(--ink-3);font-size:.85rem}
-footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer{position:relative;z-index:1;padding-block:0 28px;color:var(--ink-2);font-size:.85rem}
+footer .wrap > div{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-radius:999px;padding:12px 20px;background-color:var(--cr-bg);border:1px solid var(--cr-border);backdrop-filter:var(--cr-filter);-webkit-backdrop-filter:var(--cr-filter)}
+@media (max-width:767px){footer{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}footer .wrap > div{border-radius:18px}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .tpl-wave,.tpl-travel,.tpl-shoot{display:none}
+}
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="#accueil" aria-label="Accueil du portfolio">
-      <span class="badge" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 18c4-1 6-4 8-8s4-6 9-6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M15 3.5h5.2v5.2" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      <span>Lyam<b>Pilot</b></span>
-    </a>
-    <button class="theme-btn menu-btn" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    </button>
-    <nav class="nav" id="nav" aria-label="Rubriques">
-      <a href="#accueil" data-nav="accueil">Accueil</a>
-      <a href="#cv" data-nav="cv">Curriculum Vitae</a>
-      <a href="#stages" data-nav="stages">Stages</a>
-      <a href="#ateliers" data-nav="ateliers">Ateliers Pro</a>
-      <a href="#veille" data-nav="veille">Veille</a>
-      <a href="#competences" data-nav="competences">Compétences</a>
-    </nav>
-    <button class="theme-btn" id="themeBtn" aria-label="Changer de thème clair ou sombre">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-    </button>
-  </div>
-</header>
+<!-- Paysage fixe (dessiné en JavaScript, un par rubrique) -->
+<div class="scape" id="scape" aria-hidden="true"></div>
+<div class="scape-veil" aria-hidden="true"></div>
+<div class="topfade" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-logo" viewBox="0 0 40 40"><rect width="40" height="40" rx="9.5" fill="#18A66A"/><path d="M8 29c6-1.5 9-6 12-12s6-9 13-9" stroke="#F8FAFC" stroke-width="3.2" stroke-linecap="round" fill="none"/><path d="M25 7.5h8v8" stroke="#F8FAFC" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
+    <symbol id="i-accueil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></symbol>
+    <symbol id="i-cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><circle cx="12" cy="13" r="2.5"/><path d="M8 19c.6-1.8 2.2-3 4-3s3.4 1.2 4 3"/></symbol>
+    <symbol id="i-stages" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></symbol>
+    <symbol id="i-ateliers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/><path d="m14 4-4 16"/></symbol>
+    <symbol id="i-veille" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></symbol>
+    <symbol id="i-competences" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="m8.5 13.8-1.5 7.2 5-3 5 3-1.5-7.2"/></symbol>
+    <symbol id="i-theme" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></symbol>
+  </defs>
+</svg>
+
+<!-- Ordinateur : île flottante -->
+<div class="isl-wrap">
+  <header class="isl-host" id="islHost" aria-label="En-tête du portfolio">
+    <div class="island glass" id="island" data-state="full">
+      <div class="layer layer-full">
+        <a class="brand" href="#accueil" aria-label="Accueil du portfolio">
+          <svg class="badge" aria-hidden="true"><use href="#i-logo"/></svg>
+          <span>Lyam<b>Pilot</b></span>
+        </a>
+        <nav class="links" id="links" aria-label="Rubriques">
+          <span class="ind" id="ind" aria-hidden="true"></span>
+          <a class="link" href="#accueil" data-nav="accueil"><svg aria-hidden="true"><use href="#i-accueil"/></svg><span>Accueil</span></a>
+          <a class="link" href="#cv" data-nav="cv"><svg aria-hidden="true"><use href="#i-cv"/></svg><span>Curriculum Vitae</span></a>
+          <a class="link" href="#stages" data-nav="stages"><svg aria-hidden="true"><use href="#i-stages"/></svg><span>Stages</span></a>
+          <a class="link" href="#ateliers" data-nav="ateliers"><svg aria-hidden="true"><use href="#i-ateliers"/></svg><span>Ateliers Pro</span></a>
+          <a class="link" href="#veille" data-nav="veille"><svg aria-hidden="true"><use href="#i-veille"/></svg><span>Veille</span></a>
+          <a class="link" href="#competences" data-nav="competences"><svg aria-hidden="true"><use href="#i-competences"/></svg><span>Compétences</span></a>
+        </nav>
+        <button class="round-btn" type="button" data-theme-btn aria-label="Changer de thème clair ou sombre"><svg width="17" height="17" aria-hidden="true"><use href="#i-theme"/></svg></button>
+      </div>
+      <div class="layer layer-compact" aria-hidden="true">
+        <svg class="badge" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span data-current>Accueil</span>
+        <i class="dotlive"></i>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- Mobile : petite île en haut, barre d'onglets en bas -->
+<div class="m-top"><a class="m-pill glass" href="#accueil" aria-label="Accueil du portfolio"><svg class="badge" aria-hidden="true"><use href="#i-logo"/></svg><span data-current>Accueil</span></a></div>
+<button class="m-theme round-btn glass" type="button" data-theme-btn aria-label="Changer de thème clair ou sombre"><svg width="17" height="17" aria-hidden="true"><use href="#i-theme"/></svg></button>
+<div class="tabbar-wrap">
+  <nav class="tabbar glass" id="tabbar" data-state="full" aria-label="Rubriques">
+    <span class="bubble" id="bubble" aria-hidden="true"></span>
+    <a class="tab" href="#accueil" data-nav="accueil"><svg aria-hidden="true"><use href="#i-accueil"/></svg><span class="tab-label">Accueil</span></a>
+    <a class="tab" href="#cv" data-nav="cv"><svg aria-hidden="true"><use href="#i-cv"/></svg><span class="tab-label">CV</span></a>
+    <a class="tab" href="#stages" data-nav="stages"><svg aria-hidden="true"><use href="#i-stages"/></svg><span class="tab-label">Stages</span></a>
+    <a class="tab" href="#ateliers" data-nav="ateliers"><svg aria-hidden="true"><use href="#i-ateliers"/></svg><span class="tab-label">Ateliers</span></a>
+    <a class="tab" href="#veille" data-nav="veille"><svg aria-hidden="true"><use href="#i-veille"/></svg><span class="tab-label">Veille</span></a>
+    <a class="tab" href="#competences" data-nav="competences"><svg aria-hidden="true"><use href="#i-competences"/></svg><span class="tab-label">Compét.</span></a>
+  </nav>
+</div>
+
+<div class="shell">
 
 <main class="wrap">
 
@@ -271,7 +424,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <section class="view" data-view="accueil" data-nav-parent="accueil">
   <div class="hero">
     <div class="hero-copy">
-      <span class="status"><i></i>Recherche de stage du 4 janvier au 19 février 2027</span>
+      <span class="status cristal"><i></i>Recherche de stage du 4 janvier au 19 février 2027</span>
       <h1>Mon parcours en informatique, <em>piloté pas à pas.</em></h1>
       <p class="lead">Je suis Lyam Uhel-Veyret, étudiant en BTS SIO option <strong>SISR</strong> (Solutions d'Infrastructure, Systèmes et Réseaux) au lycée Saint-John Perse de Pau. Mon objectif : devenir administrateur systèmes et réseaux, avec un intérêt fort pour l'automatisation et la cybersécurité.</p>
       <div class="btns">
@@ -294,7 +447,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <svg viewBox="0 0 1000 230" aria-hidden="true">
         <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#18A66A"/><stop offset="1" stop-color="#1CC8A0"/></linearGradient></defs>
         <path d="M40 190 L960 190" style="stroke:var(--line)" stroke-width="1" stroke-dasharray="3 5" fill="none"/>
-        <path class="traj-path" d="M60 182 C 150 180, 170 168, 210 160 S 320 140, 360 132 S 470 104, 510 96 S 620 74, 660 70 S 770 52, 810 44 S 900 30, 940 26" stroke="url(#g)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path class="traj-path" d="M60 182 C 150 180, 170 168, 210 160 S 320 140, 360 132 S 470 104, 510 96 S 620 74, 660 70 S 770 52, 810 44 S 900 30, 940 26" stroke="url(#g)" stroke-width="5" stroke-opacity=".9" fill="none" stroke-linecap="round"/>
+        <path class="traj-flow" d="M60 182 C 150 180, 170 168, 210 160 S 320 140, 360 132 S 470 104, 510 96 S 620 74, 660 70 S 770 52, 810 44 S 900 30, 940 26" stroke="#F8FAFC" stroke-opacity=".7" stroke-width="2" fill="none" stroke-linecap="round"/>
         <g>
           <circle cx="60" cy="182" r="6" style="fill:var(--night)" stroke="#18A66A" stroke-width="3"/>
           <text class="traj-yr" x="60" y="214" text-anchor="middle">2023</text>
@@ -320,6 +474,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
           <text class="traj-sub" x="510" y="48" text-anchor="middle">5 semaines, systèmes et réseaux</text>
         </g>
         <g>
+          <circle class="traj-now" cx="660" cy="70" r="7" fill="none" stroke="#1CC8A0" stroke-width="2"/>
           <circle cx="660" cy="70" r="6" style="fill:var(--night)" stroke="#1BC196" stroke-width="3"/>
           <text class="traj-yr" x="660" y="214" text-anchor="middle">sept. 2026</text>
           <text class="traj-lbl" x="660" y="118" text-anchor="middle">TauxPilot en ligne</text>
@@ -332,6 +487,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
           <text class="traj-sub" x="810" y="108" text-anchor="middle">7 semaines, à venir</text>
         </g>
         <g>
+          <path d="M940 26 V2" stroke="#1CC8A0" stroke-width="2" stroke-linecap="round"/><path d="M940 3 L958 9 L940 15 Z" fill="#18A66A"/>
           <circle cx="940" cy="26" r="7" fill="#1CC8A0"/>
           <text class="traj-yr" x="940" y="214" text-anchor="middle">2027</text>
           <text class="traj-lbl" x="930" y="62" text-anchor="end">Diplôme BTS</text>
@@ -723,20 +879,289 @@ pause</pre></div>
 
 </main>
 
-<footer><div class="wrap"><span>Lyam Uhel-Veyret · BTS SIO SISR · Lycée Saint-John Perse, Pau</span><span>Portfolio E5, session 2027</span></div></footer>
+<footer><div class="wrap"><div><span>Lyam Uhel-Veyret · BTS SIO SISR · Lycée Saint-John Perse, Pau</span><span>Portfolio E5, session 2027 · interface TauxPilot</span></div></div></footer>
+</div>
 
+<script>
+/* Paysages TauxPilot : générateur repris tel quel de la refonte du 04/11/2026 (composant Landscape). */
+/**
+ * Générateur des paysages TauxPilot.
+ * Chaque scène est construite à partir d'un générateur pseudo-aléatoire à graine fixe :
+ * le rendu est identique côté serveur et côté client, et d'un chargement à l'autre.
+ * Scènes : comparateur (lac), alertes (phare), parcours (vallée et sentier),
+ * epargne (sommet et courbe de progression), connexion (horizon calme).
+ */
+const W=1600,H=900;
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function md(seed,levels,rough){const r=rng(seed),n=2**levels,a=new Array(n+1).fill(0);a[0]=r()*2-1;a[n]=r()*2-1;let step=n,sc=1;
+  while(step>1){const h=step/2;for(let i=h;i<n;i+=step)a[i]=(a[i-h]+a[i+h])/2+(r()*2-1)*sc;step=h;sc*=rough}
+  const m=Math.max(...a.map(Math.abs))||1;return a.map(v=>v/m)}
+function ridge(o){const a=md(o.seed,o.levels||7,o.rough||.5),n=a.length-1,x0=o.x0??0,x1=o.x1??W,env=o.env||(()=>0);
+  return a.map((v,i)=>{const x=x0+(x1-x0)*i/n;return[x,o.base+v*o.amp+env(x)]})}
+const G=(x,m,s)=>Math.exp(-Math.pow((x-m)/s,2));
+const f=v=>(+v).toFixed(1);
+function fillPath(p,b=H){return`M${f(p[0][0])},${b} `+p.map(q=>`L${f(q[0])},${f(q[1])}`).join(' ')+` L${f(p[p.length-1][0])},${b} Z`}
+function linePath(p){return'M'+p.map(q=>f(q[0])+','+f(q[1])).join(' L')}
+function yAt(p,x){for(let i=1;i<p.length;i++){if(p[i][0]>=x){const a=p[i-1],b=p[i],t=(x-a[0])/(b[0]-a[0]||1);return a[1]+(b[1]-a[1])*t}}return p[p.length-1][1]}
+function catmull(pts,seg){const out=[];for(let i=0;i<pts.length-1;i++){const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;
+  for(let j=0;j<seg;j++){const t=j/seg,t2=t*t,t3=t2*t;out.push([0,1].map(k=>.5*((2*p1[k])+(-p0[k]+p2[k])*t+(2*p0[k]-5*p1[k]+4*p2[k]-p3[k])*t2+(-p0[k]+3*p1[k]-3*p2[k]+p3[k])*t3)))}}
+  out.push(pts[pts.length-1]);return out}
+
+const PAL={
+  dark:{sky0:'#020914',sky1:'#061428',sky2:'#0C2C40',glow:'#1CC8A0',green:'#18A66A',l1:'#14324C',l2:'#0F2843',l3:'#0B1F37',l4:'#08182C',bg:'#07162D',w0:'#0B2539',w1:'#07162D',rim:'#1CC8A0',star:'#E6F1FF',tower:'#C9D6E6',lamp:'#ECFFF9',rimO:.22,
+    snow:'#BFD3E6',snowO:.14,pine:'#061427',pine2:'#0A1C33',pine3:'#0D2440',mist:'#8FE3CF',mistO:.08,win:'#FFE7B0',house:'#0F233D',roof:'#18324F',bird:'#7F94AD',br:'#1E3956',brRail:'#3C5F84'},
+  light:{sky0:'#EEF4F8',sky1:'#E4EEF4',sky2:'#D2EAE1',glow:'#18A66A',green:'#18A66A',l1:'#C7D6E2',l2:'#AABED0',l3:'#8EA5BB',l4:'#7790A8',bg:'#F8FAFC',w0:'#D3E2EB',w1:'#F8FAFC',rim:'#FFFFFF',star:null,tower:'#F8FAFC',lamp:'#18A66A',rimO:.7,
+    snow:'#FFFFFF',snowO:.8,pine:'#4B6782',pine2:'#62809C',pine3:'#7D97B0',mist:'#FFFFFF',mistO:.55,win:'#E9B949',house:'#5C7691',roof:'#48627D',bird:'#5E7893',br:'#5C7691',brRail:'#7B94AD'}
+};
+
+function mk(p,id){const c={p,id,defs:[],n:0};c.u=()=>id+'x'+(c.n++);
+  c.defs.push(`<filter id="${id}blur" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="18"/></filter>`);return c}
+function base(c,o){const p=c.p,id=c.id;
+  c.defs.push(`<linearGradient id="${id}sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${p.sky0}"/><stop offset=".55" stop-color="${p.sky1}"/><stop offset="1" stop-color="${p.sky2}"/></linearGradient>
+  <radialGradient id="${id}glow"><stop offset="0" stop-color="${p.glow}" stop-opacity=".42"/><stop offset=".45" stop-color="${p.glow}" stop-opacity=".12"/><stop offset="1" stop-color="${p.glow}" stop-opacity="0"/></radialGradient>
+  <radialGradient id="${id}win"><stop offset="0" stop-color="${p.win}" stop-opacity=".5"/><stop offset="1" stop-color="${p.win}" stop-opacity="0"/></radialGradient>
+  <linearGradient id="${id}fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${p.bg}" stop-opacity="0"/><stop offset="1" stop-color="${p.bg}" stop-opacity="1"/></linearGradient>
+  <linearGradient id="${id}water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${p.w0}"/><stop offset="1" stop-color="${p.w1}"/></linearGradient>
+  <linearGradient id="${id}shoot" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${p.star||p.bg}" stop-opacity="0"/><stop offset="1" stop-color="${p.star||p.bg}" stop-opacity=".9"/></linearGradient>`);
+  let s=`<rect width="${W}" height="${H}" fill="url(#${id}sky)"/>`;
+  if(p.star){const r=rng(o.seed||5);for(let i=0;i<(o.stars||90);i++){const x=r()*W,y=r()*(o.horizon-110),rad=.4+r()*r()*1.4,tw=r()<.35;
+    s+=`<circle cx="${f(x)}" cy="${f(y)}" r="${f(rad)}" fill="${p.star}" opacity="${f(.2+r()*.55)}"${tw?` class="tpl-tw" style="animation-delay:-${f(r()*6)}s"`:''}/>`}
+    if(o.shoot)s+=`<g class="tpl-shoot" style="animation-delay:${o.shoot[2]||0}s"><line x1="${o.shoot[0]}" y1="${o.shoot[1]}" x2="${o.shoot[0]+120}" y2="${o.shoot[1]+46}" stroke="url(#${id}shoot)" stroke-width="1.4" stroke-linecap="round"/></g>`}
+  s+=`<ellipse cx="${o.gx}" cy="${o.gy}" rx="${o.grx||560}" ry="${o.gry||150}" fill="url(#${id}glow)"/>`;
+  return s}
+const layer=(pts,fill)=>`<path d="${fillPath(pts)}" fill="${fill}"/>`;
+const rim=(pts,p,o=1)=>`<path d="${linePath(pts)}" fill="none" stroke="${p.rim}" stroke-opacity="${f(p.rimO*o)}" stroke-width="1.2"/>`;
+const fade=(c,y)=>`<rect x="0" y="${y}" width="${W}" height="${H-y}" fill="url(#${c.id}fade)"/>`;
+function mountain(c,pts,fill,o={}){const p=c.p;let s=layer(pts,fill);
+  if(o.snow||o.strata){const cid=c.u();c.defs.push(`<clipPath id="${cid}"><path d="${fillPath(pts)}"/></clipPath>`);let inner='';
+    if(o.snow){const r=rng((o.seed||1)*3+1),sj=o.sj||14;let d=`M0,0 L${W},0`;for(let x=W;x>=0;x-=14)d+=` L${x},${f(o.snow+(r()*2-1)*sj+Math.sin(x/41)*sj*.8)}`;
+      inner+=`<path d="${d} Z" fill="${p.snow}" opacity="${p.snowO}"/>`;
+      for(let i=2;i<pts.length-2;i+=3){const[x,y]=pts[i];if(y>o.snow+10)continue;const sl=pts[i+1][1]-pts[i-1][1],L=10+r()*28;
+        inner+=`<line x1="${f(x)}" y1="${f(y+2)}" x2="${f(x+(sl<0?-1:1)*L*.45)}" y2="${f(y+L)}" stroke="${p.snow}" stroke-opacity="${f(p.snowO*1.4)}" stroke-width="1.6" stroke-linecap="round"/>`}}
+    if(o.strata){const r=rng((o.seed||1)+7);for(let i=2;i<pts.length-2;i+=(o.step||2)){const[x,y]=pts[i];if(o.smax&&y>o.smax)continue;
+      const sl=pts[i+1][1]-pts[i-1][1],L=14+r()*o.strata;
+      inner+=`<line x1="${f(x)}" y1="${f(y+3)}" x2="${f(x+(sl<0?-1:1)*L*.5)}" y2="${f(y+L)}" stroke="${p.rim}" stroke-opacity="${f(p.rimO*.3)}" stroke-width="1"/>`}}
+    s+=`<g clip-path="url(#${cid})">${inner}</g>`}
+  return s+rim(pts,p,o.rim??1)}
+function pine(x,y,h){const w=h*.36;return`M${f(x)},${f(y-h)} L${f(x+w*.45)},${f(y-h*.58)} L${f(x+w*.22)},${f(y-h*.58)} L${f(x+w*.75)},${f(y-h*.22)} L${f(x+w*.38)},${f(y-h*.22)} L${f(x+w)},${f(y)} L${f(x-w)},${f(y)} L${f(x-w*.38)},${f(y-h*.22)} L${f(x-w*.75)},${f(y-h*.22)} L${f(x-w*.22)},${f(y-h*.58)} L${f(x-w*.45)},${f(y-h*.58)} Z`}
+function forest(pts,o){const r=rng(o.seed||1),a=[];for(let i=0;i<o.n;i++){const x=o.x0+r()*(o.x1-o.x0),y=yAt(pts,x)+(o.dy||4)+r()*(o.depth||0),h=o.h0+r()*(o.h1-o.h0);a.push([x,y,h*(1+(y-yAt(pts,x))/600)])}
+  a.sort((u,v)=>u[1]-v[1]);return`<path d="${a.map(q=>pine(...q)).join(' ')}" fill="${o.col}"/>`}
+function house(c,x,y,s,lit=true){const p=c.p;return`<g>${lit?`<circle cx="${f(x-2*s)}" cy="${f(y-8*s)}" r="${f(22*s)}" fill="url(#${c.id}win)"/>`:''}
+  <rect x="${f(x-13*s)}" y="${f(y-13*s)}" width="${f(26*s)}" height="${f(13*s)}" fill="${p.house}"/>
+  <polygon points="${f(x-17*s)},${f(y-12*s)} ${f(x)},${f(y-25*s)} ${f(x+17*s)},${f(y-12*s)}" fill="${p.roof}"/>
+  ${lit?`<rect x="${f(x-5*s)}" y="${f(y-10*s)}" width="${f(6*s)}" height="${f(5*s)}" fill="${p.win}"/>`:''}</g>`}
+const bird=(c,x,y,s=1)=>`<path d="M${f(x-7*s)},${f(y-2*s)} Q${f(x-3*s)},${f(y-6*s)} ${f(x)},${f(y)} Q${f(x+3*s)},${f(y-6*s)} ${f(x+7*s)},${f(y-2*s)}" fill="none" stroke="${c.p.bird}" stroke-width="1.3" stroke-linecap="round"/>`;
+const mist=(c,x,y,rx,ry,o=1,cls='tpl-drift')=>`<ellipse class="${cls}" cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${c.p.mist}" opacity="${f(c.p.mistO*o)}" filter="url(#${c.id}blur)"/>`;
+function ripples(c,cx,y0,n,seed,spread=48,op=.22){const r=rng(seed);let s='';for(let i=0;i<n;i++){const y=y0+i*i*2.2+i*7,w=90+i*spread+r()*40,x=cx+(r()-.5)*60;
+  s+=`<line x1="${f(x-w)}" y1="${f(y)}" x2="${f(x+w)}" y2="${f(y)}" stroke="${c.p.glow}" stroke-opacity="${f(Math.max(.03,op-i*.018))}" stroke-dasharray="${f(24+r()*80)} ${f(14+r()*40)}"/>`}return`<g class="tpl-ripple">${s}</g>`}
+
+const SCENES={
+comparateur(c){const p=c.p,wy=604;
+  const far=ridge({seed:11,base:452,amp:36,rough:.55,env:x=>-70*G(x,1060,320)});
+  const massif=ridge({seed:23,base:660,amp:20,rough:.56,levels:8,env:x=>-400*G(x,470,250)-250*G(x,1230,200)-110*G(x,820,140)});
+  const sL=ridge({seed:37,base:1010,amp:14,rough:.5,env:x=>-560*G(x,0,560)});
+  const sR=ridge({seed:39,base:1010,amp:14,rough:.5,env:x=>-470*G(x,1600,520)});
+  let s=base(c,{horizon:wy,gx:880,gy:wy-40,grx:560,gry:170,seed:3,stars:100,shoot:[300,90,2]});
+  c.defs.push(`<clipPath id="${c.id}lake"><rect x="0" y="${wy}" width="${W}" height="${H-wy}"/></clipPath>`);
+  s+=mountain(c,far,p.l1,{snow:405,sj:10,seed:3,rim:.7});
+  s+=mountain(c,massif,p.l2,{snow:350,sj:18,seed:5,strata:46,smax:560});
+  s+=forest(massif,{seed:14,x0:640,x1:1010,n:20,h0:10,h1:18,col:p.pine3,dy:6,depth:40});
+  s+=mist(c,880,wy-14,640,20,1.4);
+  s+=`<rect x="0" y="${wy}" width="${W}" height="${H-wy}" fill="url(#${c.id}water)"/>`;
+  s+=`<g clip-path="url(#${c.id}lake)" opacity=".32"><g transform="matrix(1 0 0 -1 0 ${2*wy})">${layer(far,p.l1)}${layer(massif,p.l2)}</g></g>`;
+  s+=`<line x1="0" y1="${wy}" x2="${W}" y2="${wy}" stroke="${p.glow}" stroke-opacity=".3"/>`;
+  s+=`<ellipse class="tpl-breathe" cx="880" cy="${wy+16}" rx="300" ry="11" fill="${p.glow}" opacity=".35"/>`;
+  s+=ripples(c,880,wy+20,12,77);
+  let xc=1500;for(let x=1200;x<1600;x+=4){if(yAt(sR,x)<=wy-3){xc=x;break}}
+  const hy=yAt(sR,xc+34)+2;
+  s+=`<g opacity=".5">${[0,1,2,3,4].map(i=>`<rect x="${f(xc+30)}" y="${f(wy+5+i*9)}" width="${f(8-i)}" height="3" fill="${p.win}" opacity="${f(.7-i*.13)}"/>`).join('')}</g>`;
+  s+=mountain(c,sL,p.l3,{strata:40,seed:8,step:3,rim:.4})+mountain(c,sR,p.l3,{strata:40,seed:9,step:3,rim:.4});
+  s+=`<line x1="${xc-90}" y1="${wy+3}" x2="${xc+12}" y2="${wy+3}" stroke="${p.br}" stroke-width="3"/>`+[0,1,2,3].map(i=>`<line x1="${xc-86+i*30}" y1="${wy+3}" x2="${xc-86+i*30}" y2="${wy+14}" stroke="${p.br}" stroke-width="2"/>`).join('');
+  s+=house(c,xc+34,hy,1.1);
+  s+=forest(sL,{seed:21,x0:0,x1:340,n:34,h0:26,h1:62,col:p.pine2,dy:6,depth:60});
+  s+=forest(sR,{seed:22,x0:xc+70,x1:1600,n:14,h0:26,h1:54,col:p.pine2,dy:6,depth:40});
+  s+=forest(sL,{seed:24,x0:0,x1:220,n:10,h0:70,h1:120,col:p.pine,dy:120,depth:120});
+  s+=fade(c,730);
+  return{s,align:'xMidYMax'}},
+
+alertes(c){const p=c.p,hy=600;
+  const far=ridge({seed:41,base:588,amp:18,rough:.55,env:x=>x<1000?-84*Math.pow((1000-x)/1000,1.2):300});
+  const mid=ridge({seed:43,base:612,amp:12,rough:.5,env:x=>-64*G(x,170,240)+(x>700?200:0)});
+  const top=ridge({seed:47,x0:1110,x1:W,base:505,amp:13,rough:.6,levels:6});
+  const lx=1318,by=yAt(top,lx),ly=by-128;
+  c.defs.push(`<linearGradient id="${c.id}beam" gradientUnits="userSpaceOnUse" x1="${lx}" y1="0" x2="0" y2="0"><stop offset="0" stop-color="${p.glow}" stop-opacity=".5"/><stop offset=".45" stop-color="${p.glow}" stop-opacity=".12"/><stop offset="1" stop-color="${p.glow}" stop-opacity="0"/></linearGradient>`);
+  let s=base(c,{horizon:hy,gx:520,gy:hy-20,grx:700,gry:150,seed:9,stars:80});
+  s+=bird(c,420,250,1.1)+bird(c,452,236)+bird(c,478,262,.9)+bird(c,612,208,.8)+bird(c,640,222,.7);
+  s+=mountain(c,far,p.l1,{rim:.6})+mountain(c,mid,p.l2,{strata:20,seed:4,step:3,rim:.5});
+  s+=`<circle cx="230" cy="${f(yAt(mid,230)-5)}" r="2.2" fill="${p.lamp}" opacity=".8"/><circle cx="230" cy="${f(yAt(mid,230)-5)}" r="10" fill="url(#${c.id}glow)"/>`;
+  s+=`<rect x="0" y="${hy}" width="${W}" height="${H-hy}" fill="url(#${c.id}water)"/>`;
+  s+=`<line x1="0" y1="${hy}" x2="${W}" y2="${hy}" stroke="${p.glow}" stroke-opacity=".25"/>`;
+  s+=ripples(c,560,hy+14,10,91,40,.24);
+  s+=mist(c,600,hy+6,620,18,1.3);
+  s+=`<g class="tpl-beam" style="transform-origin:${lx}px ${f(ly)}px"><polygon points="${lx},${f(ly)} -120,${f(ly-170)} -120,${f(ly+120)}" fill="url(#${c.id}beam)"/></g>`;
+  // écueils
+  [[930,676,46,16],[972,690,30,11],[1040,712,58,20],[880,700,22,8]].forEach(([x,y,w,h])=>{s+=`<path d="M${x},${y} Q${x+w*.3},${y-h} ${x+w*.55},${y-h*.8} T${x+w},${y} Z" fill="${p.l4}"/><path d="M${x-6},${y+2} Q${x+w/2},${y+6} ${x+w+6},${y+2}" fill="none" stroke="${p.rim}" stroke-opacity="${f(p.rimO*1.2)}" stroke-dasharray="6 5"/>`});
+  const cliff=[[1000,H],[1036,780],[1068,670],[1092,580],...top];
+  s+=mountain(c,cliff,p.l3,{strata:80,seed:12,step:1,rim:.5});
+  for(let i=0;i<6;i++){const y0=592+i*44;s+=`<path d="M${1066+i*6},${y0} Q1300,${y0-26} ${W},${y0-10}" fill="none" stroke="${p.rim}" stroke-opacity="${f(p.rimO*.25)}"/>`}
+  s+=`<path d="M990,${H} Q1010,830 1030,790" fill="none" stroke="${p.rim}" stroke-opacity="${f(p.rimO*1.1)}" stroke-dasharray="5 6"/>`;
+  s+=`<path d="M860,${H} Q1120,812 ${W},790 L${W},${H} Z" fill="${p.l4}"/>`;
+  s+=forest(top,{seed:33,x0:1460,x1:1600,n:7,h0:18,h1:34,col:p.pine2,dy:5,depth:6});
+  s+=house(c,lx-66,yAt(top,lx-66)+2,1.05);
+  s+=`<circle cx="${lx}" cy="${f(ly)}" r="76" fill="url(#${c.id}glow)"/>`;
+  s+=`<circle class="tpl-wave" cx="${lx}" cy="${f(ly)}" r="22" fill="none" stroke="${p.glow}" stroke-width="1.2"/><circle class="tpl-wave" style="animation-delay:-2.25s" cx="${lx}" cy="${f(ly)}" r="22" fill="none" stroke="${p.glow}" stroke-width="1.2"/>`;
+  const tw=(y)=>13-4*((by-y)/108);
+  s+=`<polygon points="${lx-13},${f(by+2)} ${lx+13},${f(by+2)} ${lx+9},${f(by-108)} ${lx-9},${f(by-108)}" fill="${p.tower}"/>`;
+  [[30,44],[70,84]].forEach(([a,b])=>{const y1=by-a,y2=by-b;s+=`<polygon points="${f(lx-tw(y1))},${f(y1)} ${f(lx+tw(y1))},${f(y1)} ${f(lx+tw(y2))},${f(y2)} ${f(lx-tw(y2))},${f(y2)}" fill="${p.br}"/>`});
+  s+=`<rect x="${lx-4}" y="${f(by-14)}" width="8" height="15" rx="3" fill="${p.br}"/><rect x="${lx-2}" y="${f(by-64)}" width="4" height="7" fill="${p.win}" opacity=".85"/>`;
+  s+=`<rect x="${lx-16}" y="${f(by-112)}" width="32" height="4" fill="${p.tower}"/>`;
+  for(let i=0;i<7;i++)s+=`<line x1="${lx-15+i*5}" y1="${f(by-112)}" x2="${lx-15+i*5}" y2="${f(by-119)}" stroke="${p.tower}" stroke-width="1"/>`;
+  s+=`<line x1="${lx-16}" y1="${f(by-119)}" x2="${lx+16}" y2="${f(by-119)}" stroke="${p.tower}" stroke-width="1.2"/>`;
+  s+=`<rect x="${lx-8}" y="${f(by-136)}" width="16" height="24" rx="2" fill="${p.lamp}"/><line x1="${lx}" y1="${f(by-136)}" x2="${lx}" y2="${f(by-112)}" stroke="${p.br}" stroke-width="1"/>`;
+  s+=`<path d="M${lx-11},${f(by-136)} Q${lx},${f(by-154)} ${lx+11},${f(by-136)} Z" fill="${p.br}"/><line x1="${lx}" y1="${f(by-149)}" x2="${lx}" y2="${f(by-160)}" stroke="${p.br}" stroke-width="1.4"/>`;
+  s+=fade(c,740);
+  return{s,align:'xMaxYMax'}},
+
+parcours(c){const p=c.p,cx=930;
+  const far=ridge({seed:51,base:430,amp:44,rough:.55,env:x=>-100*G(x,380,300)-150*G(x,1350,260)+30*G(x,cx,120)});
+  const mid=ridge({seed:53,base:560,amp:30,rough:.5,env:x=>-260*Math.pow(Math.abs(x-cx)/900,1.1)});
+  const sL=ridge({seed:57,base:980,amp:20,rough:.5,env:x=>-560*G(x,0,620)});
+  const sR=ridge({seed:58,base:980,amp:16,rough:.5,env:x=>-360*G(x,1600,560)});
+  const front=ridge({seed:59,base:908,amp:12,rough:.5,env:x=>-80*G(x,200,300)});
+  const cy=yAt(mid,cx);
+  let s=base(c,{horizon:cy-60,gx:cx,gy:cy-20,grx:520,gry:170,seed:13,stars:80,shoot:[1100,80,6]});
+  s+=mountain(c,far,p.l1,{snow:360,sj:12,seed:6,rim:.6});
+  s+=mountain(c,mid,p.l2,{strata:30,seed:7,step:3,smax:640});
+  s+=mist(c,cx,cy+50,520,24,1.4);
+  s+=forest(mid,{seed:31,x0:560,x1:820,n:16,h0:12,h1:22,col:p.pine3,dy:30,depth:150});
+  s+=forest(mid,{seed:32,x0:1040,x1:1260,n:12,h0:12,h1:22,col:p.pine3,dy:30,depth:120});
+  // rivière
+  const rc=catmull([[cx,cy+16],[915,600],[945,640],[915,684],[895,738],[930,792],[1010,850],[1090,905]],10),n=rc.length-1;
+  const wid=i=>2+Math.pow(i/n,1.6)*95,L=rc.map((q,i)=>[q[0]-wid(i)/2,q[1]]),R=rc.map((q,i)=>[q[0]+wid(i)/2,q[1]]).reverse();
+  s+=`<path d="M${L.concat(R).map(q=>f(q[0])+','+f(q[1])).join(' L')} Z" fill="${p.w0}"/>`;
+  s+=`<path d="${linePath(rc)}" fill="none" stroke="${p.glow}" stroke-opacity=".35" stroke-width="1.2" stroke-dasharray="10 14" class="tpl-ripple"/>`;
+  s+=house(c,760,752,1.05)+house(c,cx+44,cy+18,.6);
+  s+=mountain(c,sR,p.l3,{strata:36,seed:10,step:3,rim:.4});
+  s+=forest(sR,{seed:41,x0:1170,x1:1600,n:30,h0:22,h1:46,col:p.pine2,dy:8,depth:110});
+  s+=house(c,1262,yAt(sR,1262)+12,1);
+  s+=mountain(c,sL,p.l3,{strata:36,seed:11,step:3,rim:.4});
+  s+=forest(sL,{seed:42,x0:0,x1:640,n:52,h0:22,h1:58,col:p.pine2,dy:8,depth:150});
+  // pont
+  const qp=(t,y0,yc)=>[840+110*t,(1-t)*(1-t)*y0+2*(1-t)*t*yc+t*t*y0];
+  s+=`<path d="M840,738 Q895,712 950,738 L950,744 Q895,722 840,744 Z" fill="${p.br}"/>`;
+  s+=`<path d="M846,744 Q895,730 944,744" fill="none" stroke="${p.br}" stroke-width="2"/>`;
+  let rail='';for(let i=0;i<=10;i++){const t=i/10,a=qp(t,738,712),b=qp(t,727,701);rail+=`<line x1="${f(a[0])}" y1="${f(a[1])}" x2="${f(b[0])}" y2="${f(b[1])}" stroke="${p.brRail}" stroke-width="1.4"/>`}
+  s+=rail+`<path d="M840,727 Q895,701 950,727" fill="none" stroke="${p.brRail}" stroke-width="2"/>`;
+  s+=`<circle cx="840" cy="725" r="2.4" fill="${p.brRail}"/><circle cx="950" cy="725" r="2.4" fill="${p.brRail}"/>`;
+  const d=`M330,905 C420,830 700,800 840,738 Q895,712 950,738 C1040,722 1080,690 1030,662 S960,628 1000,606 S${cx+10},${f(cy+34)} ${cx},${f(cy+6)}`;
+  // Sentier lumineux et balises : masqués sur la page Parcours, où le vrai chemin les remplace.
+  s+='<g class="tpl-trail">';
+  s+=`<path d="${d}" fill="none" stroke="${p.glow}" stroke-opacity=".6" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/>`;
+  s+=`<path class="tpl-travel" d="${d}" fill="none" stroke="${p.glow}" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="70 2130"/>`;
+  [[840,738],[1030,662],[1000,606],[cx,cy+6]].forEach((q,i)=>{
+    s+=`<line x1="${q[0]}" y1="${f(q[1])}" x2="${q[0]}" y2="${f(q[1]-12)}" stroke="${p.brRail}" stroke-width="1.4"/><circle class="tpl-pulse" style="animation-delay:${f(i*1.1)}s" cx="${q[0]}" cy="${f(q[1]-13)}" r="12" fill="${p.glow}" opacity=".3"/><circle cx="${q[0]}" cy="${f(q[1]-13)}" r="3.4" fill="${i===3?p.lamp:p.glow}"/>`});
+  s+='</g>';
+  s+=layer(front,p.l4)+forest(front,{seed:43,x0:0,x1:420,n:9,h0:70,h1:120,col:p.pine,dy:10,depth:20});
+  s+=fade(c,780);
+  return{s,align:'xMidYMax'}},
+
+epargne(c){const p=c.p,pk=1000;
+  const far=ridge({seed:61,base:520,amp:46,rough:.55,env:x=>-90*G(x,350,260)});
+  const main=ridge({seed:67,base:720,amp:22,rough:.55,levels:8,env:x=>-360*G(x,pk,300)});
+  const side=ridge({seed:69,base:770,amp:18,rough:.5,env:x=>-160*G(x,1460,230)});
+  const front=ridge({seed:71,base:846,amp:20,rough:.5,env:x=>-90*G(x,250,300)});
+  let top=main[0];main.forEach(q=>{if(Math.abs(q[0]-pk)<140&&q[1]<top[1])top=q});
+  const climb=main.filter(q=>q[0]>=180&&q[0]<=top[0]);
+  c.defs.push(`<linearGradient id="${c.id}climb" gradientUnits="userSpaceOnUse" x1="180" y1="0" x2="${f(top[0])}" y2="0"><stop offset="0" stop-color="${p.green}" stop-opacity="0"/><stop offset=".6" stop-color="${p.green}" stop-opacity=".75"/><stop offset="1" stop-color="${p.glow}" stop-opacity="1"/></linearGradient>`);
+  let s=base(c,{horizon:520,gx:pk+80,gy:560,grx:600,gry:170,seed:21,stars:150,shoot:[200,120,9]});
+  if(p.star){c.defs.push(`<mask id="${c.id}moon"><rect width="${W}" height="${H}" fill="#000"/><circle cx="1380" cy="150" r="26" fill="#fff"/><circle cx="1392" cy="142" r="24" fill="#000"/></mask>`);
+    s+=`<circle cx="1380" cy="150" r="60" fill="url(#${c.id}glow)" opacity=".5"/><rect width="${W}" height="${H}" fill="${p.star}" opacity=".9" mask="url(#${c.id}moon)"/>`}
+  s+=mountain(c,far,p.l1,{snow:440,sj:10,seed:15,rim:.5});
+  s+=mist(c,700,600,520,22,1.2);
+  s+=mountain(c,main,p.l2,{snow:top[1]+70,sj:16,seed:16,strata:50,smax:600});
+  s+=`<path d="${linePath(climb)}" fill="none" stroke="url(#${c.id}climb)" stroke-width="2.4" stroke-linejoin="round"/>`;
+  s+=`<path class="tpl-travel" d="${linePath(climb)}" fill="none" stroke="${p.lamp}" stroke-opacity=".9" stroke-width="2.4" stroke-dasharray="60 2140" stroke-linejoin="round"/>`;
+  s+=house(c,top[0]+30,yAt(main,top[0]+30)+3,.75);
+  s+=`<circle cx="${f(top[0])}" cy="${f(top[1])}" r="60" fill="url(#${c.id}glow)"/><circle class="tpl-pulse" cx="${f(top[0])}" cy="${f(top[1])}" r="11" fill="${p.glow}" opacity=".3"/><circle cx="${f(top[0])}" cy="${f(top[1])}" r="3.6" fill="${p.lamp}"/>`;
+  s+=forest(main,{seed:52,x0:520,x1:760,n:16,h0:14,h1:26,col:p.pine3,dy:40,depth:120});
+  s+=mountain(c,side,p.l3,{strata:30,seed:17,step:3,rim:.35})+forest(side,{seed:53,x0:1280,x1:1600,n:22,h0:22,h1:44,col:p.pine2,dy:8,depth:80});
+  s+=mountain(c,front,p.l3,{rim:.25})+forest(front,{seed:54,x0:0,x1:720,n:36,h0:30,h1:80,col:p.pine,dy:8,depth:60});
+  s+=fade(c,760);
+  return{s,align:'xMidYMax'}},
+
+connexion(c){const p=c.p;
+  const far=ridge({seed:81,base:610,amp:34,rough:.55,env:x=>-110*G(x,1150,280)});
+  const mid=ridge({seed:83,base:740,amp:22,rough:.5,env:x=>-60*G(x,300,260)});
+  let s=base(c,{horizon:600,gx:800,gy:640,grx:760,gry:150,seed:31,stars:70});
+  s+=mountain(c,far,p.l1,{snow:540,sj:10,seed:18,rim:.8})+mist(c,800,660,700,20,1.2);
+  s+=mountain(c,mid,p.l2,{rim:.3})+forest(mid,{seed:61,x0:0,x1:1600,n:40,h0:18,h1:42,col:p.pine2,dy:8,depth:50});
+  s+=fade(c,700);
+  return{s,align:'xMidYMax'}}
+};
+
+var _sc={};
+function sceneSvg(name,theme){var k=name+'|'+theme;if(_sc[k])return _sc[k];
+  var c=mk(PAL[theme],'tpl-'+name+'-'+theme+'-'),sc=SCENES[name](c);
+  return _sc[k]='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="'+sc.align+' slice" width="100%" height="100%" aria-hidden="true" focusable="false" style="display:block"><defs>'+c.defs.join('')+'</defs>'+sc.s+'</svg>';}
+
+</script>
 <script>
 (function(){
   var views = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
   var names = views.map(function(v){return v.getAttribute('data-view');});
   var navLinks = document.querySelectorAll('[data-nav]');
-  var nav = document.getElementById('nav');
-  var menuBtn = document.getElementById('menuBtn');
+  var LABELS = {accueil:'Accueil',cv:'Curriculum Vitae',stages:'Stages',ateliers:'Ateliers Pro',veille:'Veille',competences:'Compétences'};
+  /* Un paysage TauxPilot par rubrique */
+  var SCENE = {accueil:'parcours',cv:'connexion',stages:'epargne',ateliers:'comparateur',veille:'alertes',competences:'epargne'};
+  var root = document.documentElement;
+  var scape = document.getElementById('scape');
+  var current = {scene:null, theme:null};
+  var parent = 'accueil';
+
+  function theme(){
+    var t = root.getAttribute('data-theme');
+    if (t) return t;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+
+  function paint(){
+    var sc = SCENE[parent] || 'parcours', th = theme();
+    if (sc === current.scene && th === current.theme) return;
+    current.scene = sc; current.theme = th;
+    var layer = document.createElement('div');
+    layer.className = 'scape-layer';
+    layer.style.opacity = '0';
+    try { layer.innerHTML = sceneSvg(sc, th); } catch(e) { return; }
+    scape.appendChild(layer);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ layer.style.opacity = '1'; }); });
+    var old = Array.prototype.slice.call(scape.children, 0, -1);
+    setTimeout(function(){ old.forEach(function(o){ if (o.parentNode) o.parentNode.removeChild(o); }); }, 750);
+  }
+
+  /* Pastille (île) et bulle (onglets) qui glissent vers la rubrique active */
+  function placeUnder(container, ind, inset){
+    if (!container || !ind) return;
+    var on = container.querySelector('[aria-current="page"]');
+    if (!on || !on.offsetWidth) { ind.style.opacity = '0'; return; }
+    ind.style.opacity = '1';
+    ind.style.left = (on.offsetLeft + inset) + 'px';
+    ind.style.width = (on.offsetWidth - inset * 2) + 'px';
+  }
+  var links = document.getElementById('links'), ind = document.getElementById('ind');
+  var tabbar = document.getElementById('tabbar'), bubble = document.getElementById('bubble');
+  function track(){
+    var end = performance.now() + 700;
+    (function step(){
+      placeUnder(links, ind, 0);
+      placeUnder(tabbar, bubble, 3);
+      if (performance.now() < end) requestAnimationFrame(step);
+    })();
+  }
 
   function show(){
     var h = (location.hash || '').replace('#','');
     if (names.indexOf(h) === -1) h = 'accueil';
-    var parent = 'accueil';
+    parent = 'accueil';
     views.forEach(function(v){
       var on = v.getAttribute('data-view') === h;
       v.hidden = !on;
@@ -746,26 +1171,45 @@ pause</pre></div>
       if (a.getAttribute('data-nav') === parent) a.setAttribute('aria-current','page');
       else a.removeAttribute('aria-current');
     });
-    nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false');
+    document.querySelectorAll('[data-current]').forEach(function(el){ el.textContent = LABELS[parent] || 'Accueil'; });
     window.scrollTo(0,0);
+    paint();
+    track();
   }
   window.addEventListener('hashchange', show);
-  show();
+  window.addEventListener('resize', track);
 
-  menuBtn.addEventListener('click', function(){
-    var o = nav.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded', o ? 'true' : 'false');
-  });
+  /* Île (ordinateur) : dépliée au chargement, elle se range en pilule quand la souris la quitte */
+  var island = document.getElementById('island'), host = document.getElementById('islHost');
+  var hovered = false, hideTimer;
+  function setIsland(s){ if (island.getAttribute('data-state') !== s) { island.setAttribute('data-state', s); track(); } }
+  function scheduleHide(d){ clearTimeout(hideTimer); hideTimer = setTimeout(function(){ if (!hovered && !host.contains(document.activeElement)) setIsland('compact'); }, d); }
+  host.addEventListener('mouseenter', function(){ hovered = true; clearTimeout(hideTimer); setIsland('full'); });
+  host.addEventListener('mouseleave', function(){ hovered = false; scheduleHide(700); });
+  host.addEventListener('focusin', function(){ clearTimeout(hideTimer); setIsland('full'); });
+  host.addEventListener('focusout', function(){ if (!hovered) scheduleHide(700); });
+  scheduleHide(2200);
 
-  var root = document.documentElement;
+  /* Barre d'onglets (mobile) : se resserre en icônes quand on descend */
+  var last = window.scrollY;
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY, s = tabbar.getAttribute('data-state');
+    if (y > last + 8 && y > 80 && s !== 'compact') { tabbar.setAttribute('data-state','compact'); track(); }
+    else if ((y < last - 8 || y < 40) && s !== 'full') { tabbar.setAttribute('data-state','full'); track(); }
+    last = y;
+  }, {passive:true});
+
+  /* Thème clair / sombre : le paysage suit */
   try { var saved = localStorage.getItem('lp-theme'); if (saved) root.setAttribute('data-theme', saved); } catch(e){}
-  document.getElementById('themeBtn').addEventListener('click', function(){
-    var cur = root.getAttribute('data-theme') ||
-      (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-    var next = cur === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('lp-theme', next); } catch(e){}
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var next = theme() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('lp-theme', next); } catch(e){}
+      paint();
+    });
   });
+  try { window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', paint); } catch(e){}
 
   document.querySelectorAll('[data-copy]').forEach(function(b){
     b.addEventListener('click', function(){
@@ -777,6 +1221,8 @@ pause</pre></div>
       } else sel();
     });
   });
+
+  show();
 })();
 </script>
 </body>
