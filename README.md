@@ -1,6 +1,6 @@
 # Portfolio BTS SIO SISR — Lyam Uhel-Veyret
 
-Portfolio E5 (bloc 1) aux couleurs de TauxPilot. Site statique : tout tient dans `index.html`.
+Portfolio E5 (bloc 1) avec la nouvelle interface de TauxPilot (refonte du 04/11/2026) : paysage dessiné propre à chaque rubrique, navigation en « île » flottante (barre d'onglets en bas sur mobile) et cartes en verre « Cristal ». Site statique : tout tient dans `index.html`.
 
 En ligne : https://lexylaure.github.io/portfolio/
 
