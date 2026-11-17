@@ -18,10 +18,8 @@ body{margin:0}img{max-width:100%}
    - les cartes passent en verre « Cristal » : bords nets, fond éclairci ou assombri pour la lecture. */
 :root{
   --night:#07162D;      /* fond principal, bleu nuit */
-  --panel:#10233F;      /* cartes opaques (repli) */
   --panel-2:rgba(7,22,45,.42);
   --line:rgba(255,255,255,.16);
-  --line-2:#243B5A;
   --ink:#F8FAFC;
   --ink-2:#C9D4E3;
   --ink-3:#97A8BF;
@@ -55,7 +53,7 @@ body{margin:0}img{max-width:100%}
 @media (min-width:768px){:root{--nav-h:92px}}
 @media (prefers-color-scheme: light){
   :root:not([data-theme="dark"]){
-    --night:#F4EFE6; --panel:#FBF8F2; --panel-2:rgba(251,248,242,.78); --line:rgba(60,48,28,.12); --line-2:#E2DACB;
+    --night:#F4EFE6; --panel-2:rgba(251,248,242,.78); --line:rgba(60,48,28,.12);
     --ink:#14202F; --ink-2:#3D4753; --ink-3:#6A6860;
     --green:#12844F; --teal:#0B8C70; --green-soft:rgba(18,132,79,.12); --teal-soft:rgba(14,156,124,.12);
     --warn:#9A5F0C; --code-bg:rgba(11,28,53,.92);
@@ -69,7 +67,7 @@ body{margin:0}img{max-width:100%}
   }
 }
 :root[data-theme="light"]{
-  --night:#F4EFE6; --panel:#FBF8F2; --panel-2:rgba(251,248,242,.78); --line:rgba(60,48,28,.12); --line-2:#E2DACB;
+  --night:#F4EFE6; --panel-2:rgba(251,248,242,.78); --line:rgba(60,48,28,.12);
   --ink:#14202F; --ink-2:#3D4753; --ink-3:#6A6860;
   --green:#12844F; --teal:#0B8C70; --green-soft:rgba(18,132,79,.12); --teal-soft:rgba(14,156,124,.12);
   --warn:#9A5F0C; --code-bg:rgba(11,28,53,.92);
@@ -129,7 +127,7 @@ p{margin:0}
 
 /* ---------- Verre ---------- */
 .glass{background:var(--n-glass);border:1px solid var(--n-line);backdrop-filter:blur(22px) saturate(170%);-webkit-backdrop-filter:blur(22px) saturate(170%);box-shadow:inset 0 1px 0 var(--n-hi),0 18px 40px -24px rgba(0,0,0,.65)}
-.cristal,.offer,.card,.cv-block,.fiche-aside,.comp,.pp,.proof-sentence,.matrix-box,.journal,.traj-box,.page-head.boxed{
+.cristal,.offer,.card,.cv-block,.fiche-aside,.comp,.pp,.proof-sentence,.matrix-box,.journal,.traj-box{
   background-color:var(--cr-bg);background-image:var(--cr-hi);border:1px solid var(--cr-border);
   backdrop-filter:var(--cr-filter);-webkit-backdrop-filter:var(--cr-filter);box-shadow:var(--cr-shadow)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
@@ -167,7 +165,7 @@ p{margin:0}
 .m-top{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));inset-inline:0;z-index:50;display:flex;justify-content:center;pointer-events:none}
 .m-pill{pointer-events:auto;height:40px;border-radius:20px;display:flex;align-items:center;gap:8px;padding:0 14px 0 6px;color:var(--n-fg);font-weight:600;font-size:14px;text-decoration:none}
 .m-pill .badge{width:28px;height:28px}
-.m-theme{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));z-index:51;width:40px;height:40px;border-radius:20px}
+.m-theme{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));z-index:51;border-radius:20px}
 .tabbar-wrap{position:fixed;inset:auto 0 calc(12px + env(safe-area-inset-bottom,0px));z-index:50}
 .tabbar{position:relative;margin:0 12px;height:66px;border-radius:33px;display:flex;align-items:center;padding:0 4px;
   transition:margin .55s var(--spring),height .55s var(--spring),border-radius .55s var(--spring)}
@@ -188,7 +186,6 @@ main{padding-top:calc(var(--nav-h) + env(safe-area-inset-top,0px) + 28px);paddin
 @keyframes fade{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
 .page-head{display:grid;gap:12px;max-width:760px}
 .page-head p{color:var(--ink-2);font-size:1.05rem;text-shadow:0 1px 14px var(--night)}
-.page-head.boxed{max-width:none;border-radius:24px;padding:24px}
 
 /* Boutons */
 .btns{display:flex;gap:12px;flex-wrap:wrap}
@@ -209,7 +206,6 @@ main{padding-top:calc(var(--nav-h) + env(safe-area-inset-top,0px) + 28px);paddin
 .status i{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px var(--teal-soft);animation:ping 2.2s ease-out infinite}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(28,200,160,.6)}100%{box-shadow:0 0 0 10px rgba(28,200,160,0)}}
 .hero-copy .lead,.hero-copy .status{text-wrap:pretty}
-.lead-box{border-radius:20px;padding:18px 20px}
 
 /* Carte "offre" façon comparateur */
 .offer{border-radius:24px;padding:22px;display:grid;gap:16px}
@@ -804,7 +800,7 @@ pause</pre></div>
     <h2>Méthode</h2>
     <div class="method">
       <div class="pp"><span class="tag">PULL · je vais chercher</span><h3>Feedly et YouTube</h3><ul><li>Red Hat Blog : Ansible, automatisation, open source</li><li>Cisco Blogs : réseaux et exploitation</li><li>r/ansible : retours d'expérience</li><li>Chaînes Red Hat et Cisco</li></ul></div>
-      <div class="pp"><span class="tag">PUSH · l'information vient à moi</span><h3>Google Alertes</h3><ul><li>Requête avec plusieurs formulations reliées par OR</li><li>Envoi par e-mail, au maximum une fois par jour</li><li>Toutes langues et toutes régions</li></ul></div>
+      <div class="pp"><span class="tag">PUSH · l'information vient à moi</span><h3>Google Alertes</h3><ul><li>Requête : <code>"NetDevOps" OR "network automation" OR "Ansible network"</code></li><li>Résultats reçus par e-mail</li><li>L'alerte trouve des pages, elle ne garantit pas leur fiabilité : chaque site est évalué</li></ul></div>
       <div class="pp"><span class="tag">Vérifier</span><h3>Évaluer les sources</h3><ul><li>Sources officielles : fiables, parfois promotionnelles</li><li>Communauté : utile, à recouper</li><li>Une synthèse par IA n'est pas une preuve : je compare aux sources d'origine</li></ul></div>
     </div>
   </div>
@@ -815,6 +811,13 @@ pause</pre></div>
       <thead><tr><th>Semaine</th><th>Publication</th><th>Synthèse personnelle</th><th>Intérêt SISR</th></tr></thead>
       <tbody>
         <tr><td>S1 · 13/10/2026</td><td><a href="https://www.reddit.com/r/ansible/comments/1x41bbl/demo_lightwell_aap_automated_cicd_from_pr_to/" target="_blank" rel="noopener">Lightwell + AAP : CI/CD automatisé</a><br><span class="muted">r/ansible, 12/10/2026</span></td><td>Démonstration d'un déploiement avec tests, validation humaine et retour arrière via Ansible Automation Platform. Résultat déclaré par l'auteur, non vérifié de façon indépendante. L'exemple porte sur une application, pas sur des commutateurs.</td><td>Comprendre l'automatisation et la maîtrise des changements.</td></tr>
+        <tr><td>S1 · 14/10/2026</td><td><a href="https://www.redhat.com/en/blog/advancing-netops-code-strategic-momentum-enhanced-security-and-multimode-automation" target="_blank" rel="noopener">NetOps-as-Code : bilan du T3</a><br><span class="muted">Red Hat Blog, 14/10/2026</span></td><td>Red Hat fait le bilan de 11 versions de ses collections réseau Ansible au troisième trimestre, dont cisco.ios et ansible.netcommon, avec un accent sur la sécurité et l'idempotence. Article de l'éditeur : le détail est à vérifier dans les changelogs.</td><td>Garder à jour les modules et les playbooks réseau.</td></tr>
+        <tr><td>S2 · 19/10/2026</td><td><a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/whats_new-aap_26_2026_10_19" target="_blank" rel="noopener">Ansible Automation Platform 2.6 : mise à jour</a><br><span class="muted">Documentation Red Hat, 19/10/2026</span></td><td>41 mises à jour de sécurité, 2 améliorations et 32 correctifs. Elles renforcent notamment des réglages TLS de l'Operator. Les correctifs touchent plusieurs composants : ce n'est pas une seule faille.</td><td>Sécuriser la plateforme qui pilote l'automatisation.</td></tr>
+        <tr><td>S3 · 26/10/2026</td><td><a href="https://blogs.cisco.com/news/powering-partner-potential-in-a-world-of-agentic-ai" target="_blank" rel="noopener">Cisco AgenticOps</a><br><span class="muted">Cisco Blogs, 26/10/2026</span></td><td>Cisco présente AgenticOps : des outils de supervision et des serveurs MCP qui relient des agents IA aux données réseau. Certaines actions automatisées sont encore en disponibilité contrôlée. Il faut distinguer ce qui est disponible, ce qui est annoncé et ce qui relève de la feuille de route.</td><td>Diagnostic, supervision et automatisation assistés.</td></tr>
+        <tr><td>S4 · 02/11/2026</td><td><a href="https://forum.ansible.com/t/new-release-ansible-core-v2-22-0/46587" target="_blank" rel="noopener">Sortie d'ansible-core 2.22.0</a><br><span class="muted">Forum officiel Ansible, 02/11/2026</span></td><td>Nouvelle version du moteur d'Ansible. Les nouveautés sont à lire dans le changelog officiel.</td><td>Tester la compatibilité des playbooks avant de mettre à jour.</td></tr>
+        <tr><td>S4 · 05/11/2026</td><td><a href="https://forum.ansible.com/t/release-announcement-ansible-dev-tools-v26-11-0/46605" target="_blank" rel="noopener">ansible-dev-tools 26.11.0</a><br><span class="muted">Forum officiel Ansible, 05/11/2026</span></td><td>Nouvelle version des outils de développement Ansible (ansible-lint, Molecule, ansible-builder…). Le détail des corrections est dans le changelog de chaque outil.</td><td>Vérifier et tester les playbooks avant le déploiement.</td></tr>
+        <tr><td>S5 · 10/11/2026</td><td><a href="https://forum.ansible.com/t/release-announcement-ansible-community-package-15-0-0rc1-pre-release/46638" target="_blank" rel="noopener">Ansible 15.0.0rc1</a><br><span class="muted">Forum officiel Ansible, 10/11/2026</span></td><td>Version candidate du paquet communautaire Ansible 15, basée sur ansible-core 2.22.0. C'est une préversion, pas une version finale stable.</td><td>Anticiper les changements des collections.</td></tr>
+        <tr><td>S6 · 16/11/2026</td><td><a href="https://blogs.cisco.com/cisco-devnet/cisco-cvds-red-hat-ansible-data-center-automation" target="_blank" rel="noopener">Cisco CVD + Red Hat Ansible</a><br><span class="muted">Cisco DevNet, 16/11/2026</span></td><td>Guides de conception Cisco pour automatiser les datacenters avec Ansible, à partir de playbooks versionnés dans Git. Les 137 modules Cisco Intersight sont un chiffre annoncé par Cisco.</td><td>Configuration reproductible, conformité et maintenance au quotidien.</td></tr>
       </tbody>
     </table></div>
     <p class="muted" style="font-size:.9rem">Recoupement : <a href="https://docs.ansible.com/projects/ansible/13/network/index.html" target="_blank" rel="noopener">documentation Ansible Network Automation</a> · <a href="https://docs.ansible.com/automation-controller/4.4/html/userguide/workflow_templates.html" target="_blank" rel="noopener">workflows Automation Controller</a></p>
@@ -824,7 +827,7 @@ pause</pre></div>
     <h2>Ma routine</h2>
     <ol class="steps">
       <li><span><b>Chaque semaine</b> : lire Feedly, les alertes reçues et les chaînes suivies.</span></li>
-      <li><span><b>Choisir et vérifier</b> : retenir une publication utile et vérifier les faits importants.</span></li>
+      <li><span><b>Choisir et vérifier</b> : retenir 1 à 3 publications utiles et vérifier les faits importants.</span></li>
       <li><span><b>Enregistrer</b> : rédiger 2 ou 3 lignes avec la source, la date et le lien.</span></li>
       <li><span><b>Chaque mois</b> : faire le bilan et mettre à jour cette page.</span></li>
     </ol>
@@ -832,7 +835,7 @@ pause</pre></div>
 
   <div class="sec">
     <h2>Tendances et bilan</h2>
-    <div class="prose"><p>Les premières lectures montrent que l'automatisation réseau reprend les pratiques du développement : configuration décrite dans des fichiers versionnés, tests avant mise en production, validation humaine et retour arrière possible. Ce bilan sera complété chaque mois.</p></div>
+    <div class="prose"><p>Les premières lectures montrent que l'automatisation réseau reprend les pratiques du développement : configuration décrite dans des fichiers versionnés, tests avant mise en production, validation humaine et retour arrière possible.</p><p><strong>Bilan au 17/11/2026 :</strong> le NetDevOps rapproche les outils réseau des méthodes du développement : versionnement, revue des changements, tests, déploiement reproductible, journalisation et conformité. Les sorties logicielles et les annonces doivent être qualifiées précisément : version finale, préversion, démonstration ou annonce commerciale.</p></div>
   </div>
 </section>
 
