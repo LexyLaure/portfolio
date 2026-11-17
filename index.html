@@ -617,7 +617,7 @@ footer .wrap > div{display:flex;justify-content:space-between;gap:12px;flex-wrap
       <div class="kv"><span>Période</span><b>Mai – juin 2026</b></div>
       <div class="kv"><span>Cadre</span><b>Stage, Institut Saint Dominique</b></div>
       <div class="kv"><span>Travail</span><b>En binôme avec le service informatique</b></div>
-      <div class="kv"><span>Compétences</span><div class="chips"><span class="chip c">Gérer le patrimoine</span><span class="chip c">Mettre à disposition</span></div></div>
+      <div class="kv"><span>Compétences</span><div class="chips"><span class="chip c">Patrimoine</span><span class="chip c">Mise à disposition</span></div></div>
     </aside>
     <div class="fiche-body">
       <div class="blk"><h3>Contexte et besoin</h3><p>La salle informatique Info 1 accueille des cours toute l'année. Ses 36 postes étaient en fin de vie et devaient être remplacés avant le nouveau cycle pédagogique, sans bloquer les cours plus longtemps que nécessaire.</p></div>
@@ -644,7 +644,7 @@ pause</pre></div>
       <div class="blk"><h3>Résultat</h3><p>Les 36 postes sont configurés de façon identique, joints au domaine et gérés depuis IACA. Le script a évité de répéter les mêmes réglages à la main sur chaque machine.</p></div>
       <div class="blk"><h3>Compétences mobilisées</h3>
         <div class="proof-sentence"><b>Gérer le patrimoine informatique</b>J'ai remplacé et recensé les postes de la salle Info 1 et organisé la mise au rebut des anciens afin de renouveler le parc. Le résultat est vérifiable par la liste des postes dans la console IACA.</div>
-        <div class="proof-sentence"><b>Mettre à disposition un service</b>J'ai déployé et testé les nouveaux postes avant la reprise des cours. Le script et la session élève testée en sont la preuve, car j'ai vérifié le service avant de le livrer aux utilisateurs.</div>
+        <div class="proof-sentence"><b>Mettre à disposition des utilisateurs un service informatique</b>J'ai déployé et testé les nouveaux postes avant la reprise des cours. Le script et la session élève testée en sont la preuve, car j'ai vérifié le service avant de le livrer aux utilisateurs.</div>
       </div>
       <div class="blk"><h3>Preuves</h3><div class="todo">Capture recadrée de la console IACA montrant le sous-parc Info 1 (noms anonymisés).</div><div class="todo">Photo de la salle ou des postes en cours d'installation, si l'établissement l'autorise.</div></div>
       <div class="blk"><h3>Bilan réflexif</h3><p>J'ai appris qu'un script fait gagner beaucoup de temps dès qu'une tâche se répète. Avec le recul, désactiver l'UAC et vider le mot de passe local affaiblissent la sécurité : je remettrais ces réglages en fin de préparation, ou j'utiliserais une GPO plutôt qu'un script local.</p></div>
@@ -661,7 +661,7 @@ pause</pre></div>
       <div class="kv"><span>Période</span><b>Mai – juin 2026</b></div>
       <div class="kv"><span>Cadre</span><b>Stage, Institut Saint Dominique</b></div>
       <div class="kv"><span>Travail</span><b>Sous la supervision du tuteur</b></div>
-      <div class="kv"><span>Compétences</span><div class="chips"><span class="chip c">Incidents</span><span class="chip c">Mettre à disposition</span></div></div>
+      <div class="kv"><span>Compétences</span><div class="chips"><span class="chip c">Incidents</span><span class="chip c">Mise à disposition</span></div></div>
     </aside>
     <div class="fiche-body">
       <div class="blk"><h3>Contexte et besoin</h3><p>Les enseignants utilisent <strong>Veyon</strong> pour superviser les écrans des élèves. Il fallait rendre cet outil joignable à travers le pare-feu. En parallèle, un poste administratif avait été branché par erreur sur le réseau pédagogique, et des postes de la salle Info 2 n'avaient plus de réseau.</p></div>
@@ -671,8 +671,8 @@ pause</pre></div>
       <div class="blk"><h3>Démarche</h3><ol><li>Fixer l'adresse du poste par réservation DHCP, sinon la règle NAT casse au prochain bail.</li><li>Créer la redirection limitée au port de Veyon.</li><li>Pour le poste mal raccordé : constater qu'il reçoit une adresse du mauvais réseau, suivre le câble jusqu'au sous-répartiteur, changer de port.</li><li>Pour Info 2 : tester la carte réseau, puis la prise, puis le câble, jusqu'à trouver l'élément défaillant.</li></ol></div>
       <div class="blk"><h3>Résultat</h3><ul><li>Veyon fonctionne à travers le pare-feu.</li><li>Le poste administratif reçoit à nouveau une adresse du VLAN administratif et accède à ses applications.</li><li>Les postes d'Info 2 ont retrouvé le réseau.</li></ul></div>
       <div class="blk"><h3>Compétences mobilisées</h3>
-        <div class="proof-sentence"><b>Répondre aux incidents</b>J'ai diagnostiqué la perte de réseau en Info 2 et l'erreur de VLAN à partir des tests de configuration IP afin de rétablir le service. Le résultat est vérifiable par la commande ipconfig avant et après l'intervention.</div>
-        <div class="proof-sentence"><b>Mettre à disposition un service</b>J'ai rendu Veyon accessible aux enseignants grâce à une réservation DHCP et une règle NAT, puis j'ai testé la prise de contrôle d'un poste. La capture de la règle (adresses masquées) en est la preuve.</div>
+        <div class="proof-sentence"><b>Répondre aux incidents et aux demandes d'assistance et d'évolution</b>J'ai diagnostiqué la perte de réseau en Info 2 et l'erreur de VLAN à partir des tests de configuration IP afin de rétablir le service. Le résultat est vérifiable par la commande ipconfig avant et après l'intervention.</div>
+        <div class="proof-sentence"><b>Mettre à disposition des utilisateurs un service informatique</b>J'ai rendu Veyon accessible aux enseignants grâce à une réservation DHCP et une règle NAT, puis j'ai testé la prise de contrôle d'un poste. La capture de la règle (adresses masquées) en est la preuve.</div>
       </div>
       <div class="blk"><h3>Preuves</h3><div class="todo">Capture de la règle NAT avec les adresses masquées.</div><div class="todo">Résultat d'ipconfig avant et après le rebrassage (adresses masquées).</div></div>
       <div class="blk"><h3>Bilan réflexif</h3><p>J'ai compris concrètement pourquoi on sépare les réseaux : un simple câble sur le mauvais port suffit à mettre des données sensibles du mauvais côté. La prochaine fois, je documenterais chaque rebrassage dans le plan de brassage au moment même où je le fais.</p></div>
@@ -689,7 +689,7 @@ pause</pre></div>
       <div class="kv"><span>Période</span><b>Mai – juin 2026</b></div>
       <div class="kv"><span>Cadre</span><b>Stage, Institut Saint Dominique</b></div>
       <div class="kv"><span>Travail</span><b>Individuel, validé par le tuteur</b></div>
-      <div class="kv"><span>Compétences</span><div class="chips"><span class="chip c">Incidents</span><span class="chip c">Patrimoine</span><span class="chip c">Mettre à disposition</span></div></div>
+      <div class="kv"><span>Compétences</span><div class="chips"><span class="chip c">Incidents</span><span class="chip c">Patrimoine</span><span class="chip c">Mise à disposition</span></div></div>
     </aside>
     <div class="fiche-body">
       <div class="blk"><h3>Contexte et besoin</h3><p>L'établissement partage ses imprimantes via un serveur d'impression dédié. De nouveaux copieurs devaient être mis en service et, au CDI, les élèves et les professeurs ne trouvaient plus l'imprimante dans leur session.</p></div>
@@ -699,9 +699,9 @@ pause</pre></div>
       <div class="blk"><h3>Démarche</h3><ol><li>Reproduire le problème en ouvrant une session élève au CDI.</li><li>Vérifier que la file existe et fonctionne sur le serveur.</li><li>Comparer le chemin déclaré dans IACA avec le vrai nom de partage.</li><li>Corriger le chemin, rouvrir une session, imprimer une page de test.</li></ol></div>
       <div class="blk"><h3>Résultat</h3><p>L'imprimante du CDI apparaît de nouveau automatiquement dans les sessions élèves et professeurs. Les nouvelles imprimantes sont en service et inventoriées.</p></div>
       <div class="blk"><h3>Compétences mobilisées</h3>
-        <div class="proof-sentence"><b>Répondre aux incidents</b>J'ai diagnostiqué l'absence d'imprimante au CDI en comparant le chemin UNC déclaré dans IACA au partage réel, afin de rétablir l'impression. La page de test imprimée depuis une session élève le prouve.</div>
+        <div class="proof-sentence"><b>Répondre aux incidents et aux demandes d'assistance et d'évolution</b>J'ai diagnostiqué l'absence d'imprimante au CDI en comparant le chemin UNC déclaré dans IACA au partage réel, afin de rétablir l'impression. La page de test imprimée depuis une session élève le prouve.</div>
         <div class="proof-sentence"><b>Gérer le patrimoine informatique</b>J'ai mis à jour l'inventaire des imprimantes avec STUDIUM. L'extrait anonymisé de l'inventaire en est la preuve.</div>
-        <div class="proof-sentence"><b>Mettre à disposition un service</b>J'ai créé et testé les nouvelles files d'impression avant de les ouvrir aux utilisateurs.</div>
+        <div class="proof-sentence"><b>Mettre à disposition des utilisateurs un service informatique</b>J'ai créé et testé les nouvelles files d'impression avant de les ouvrir aux utilisateurs.</div>
       </div>
       <div class="blk"><h3>Preuves</h3><div class="todo">Capture du chemin UNC corrigé dans IACA (noms anonymisés).</div><div class="todo">Capture de la liste des files d'impression sur le serveur.</div></div>
       <div class="blk"><h3>Bilan réflexif</h3><p>Une seule faute dans un chemin réseau suffit à priver toute une salle d'impression. J'ai appris à suivre le chemin complet, de la session jusqu'au serveur, plutôt que de réinstaller au hasard.</p></div>
@@ -770,9 +770,9 @@ pause</pre></div>
       <div class="blk"><h3>Démarche</h3><ol><li>Rédiger l'idée et le plan du MVP (produit minimum).</li><li>Monter l'infrastructure, puis le backend, la base, le frontend.</li><li>Sécuriser : base et API non exposées, routes admin protégées, pare-feu.</li><li>Ajouter un contrôle de santé qui interroge réellement la base (réponse 200 ou 503).</li><li>Garder une sauvegarde de chaque image déployée pour pouvoir revenir en arrière.</li><li>Faire auditer les calculs, ce qui a révélé trois erreurs, corrigées et testées dans une copie isolée (85 tests passants).</li></ol></div>
       <div class="blk"><h3>Résultat</h3><p>Le site est en ligne sur tauxpilot.fr en HTTPS, avec comptes utilisateurs, comparateur et alertes. Les services internes ne sont pas joignables depuis Internet.</p></div>
       <div class="blk"><h3>Compétences mobilisées</h3>
-        <div class="proof-sentence"><b>Développer la présence en ligne</b>J'ai publié un site sur un nom de domaine avec HTTPS et des e-mails à l'image du service. Le site public et son certificat sont vérifiables par tous.</div>
+        <div class="proof-sentence"><b>Développer la présence en ligne de l'organisation</b>J'ai publié un site sur un nom de domaine avec HTTPS et des e-mails à l'image du service. Le site public et son certificat sont vérifiables par tous.</div>
         <div class="proof-sentence"><b>Travailler en mode projet</b>J'ai planifié le MVP, suivi l'avancement dans un journal de reprise et versionné le code avec Git. Le journal et l'historique des commits en sont la preuve.</div>
-        <div class="proof-sentence"><b>Mettre à disposition un service</b>J'ai déployé l'application en conteneurs, ajouté un contrôle de santé et gardé des images de retour arrière. Le schéma d'architecture et la réponse du contrôle de santé le montrent.</div>
+        <div class="proof-sentence"><b>Mettre à disposition des utilisateurs un service informatique</b>J'ai déployé l'application en conteneurs, ajouté un contrôle de santé et gardé des images de retour arrière. Le schéma d'architecture et la réponse du contrôle de santé le montrent.</div>
         <div class="proof-sentence"><b>Organiser son développement professionnel</b>Je me suis autoformé à Docker, FastAPI, Next.js et au RGPD en dehors des cours.</div>
       </div>
       <div class="blk"><h3>Preuves</h3><div class="todo">Capture de la page d'accueil de tauxpilot.fr et du cadenas HTTPS.</div><div class="todo">Extrait du docker-compose.yml (sans secrets ni variables d'environnement).</div><div class="todo">Capture de l'historique Git ou d'un commit représentatif.</div></div>
@@ -861,20 +861,20 @@ pause</pre></div>
     </tr></thead>
     <tbody>
       <tr><th scope="row">Gérer le patrimoine informatique<small>Inventaire, droits, licences</small></th><td><i class="dot full" aria-label="principale"></i></td><td></td><td><i class="dot half" aria-label="en appui"></i></td><td><i class="dot half" aria-label="en appui"></i></td><td></td><td></td></tr>
-      <tr><th scope="row">Répondre aux incidents et aux demandes<small>Diagnostic, résolution</small></th><td></td><td><i class="dot full" aria-label="principale"></i></td><td><i class="dot full" aria-label="principale"></i></td><td></td><td></td><td></td></tr>
-      <tr><th scope="row">Développer la présence en ligne<small>Site, domaine, publication</small></th><td></td><td></td><td></td><td></td><td><i class="dot full" aria-label="principale"></i></td><td></td></tr>
+      <tr><th scope="row">Répondre aux incidents et aux demandes d'assistance et d'évolution<small>Diagnostic, résolution</small></th><td></td><td><i class="dot full" aria-label="principale"></i></td><td><i class="dot full" aria-label="principale"></i></td><td></td><td></td><td></td></tr>
+      <tr><th scope="row">Développer la présence en ligne de l'organisation<small>Site, domaine, publication</small></th><td></td><td></td><td></td><td></td><td><i class="dot full" aria-label="principale"></i></td><td></td></tr>
       <tr><th scope="row">Travailler en mode projet<small>Planification, suivi, Git</small></th><td></td><td></td><td></td><td></td><td><i class="dot full" aria-label="principale"></i></td><td></td></tr>
-      <tr><th scope="row">Mettre à disposition un service<small>Installation, tests, déploiement</small></th><td><i class="dot full" aria-label="principale"></i></td><td><i class="dot half" aria-label="en appui"></i></td><td><i class="dot half" aria-label="en appui"></i></td><td></td><td><i class="dot full" aria-label="principale"></i></td><td></td></tr>
+      <tr><th scope="row">Mettre à disposition des utilisateurs un service informatique<small>Installation, tests, déploiement</small></th><td><i class="dot full" aria-label="principale"></i></td><td><i class="dot half" aria-label="en appui"></i></td><td><i class="dot half" aria-label="en appui"></i></td><td></td><td><i class="dot full" aria-label="principale"></i></td><td></td></tr>
       <tr><th scope="row">Organiser son développement professionnel<small>Veille, autoformation</small></th><td></td><td></td><td></td><td><i class="dot full" aria-label="principale"></i></td><td><i class="dot half" aria-label="en appui"></i></td><td><i class="dot full" aria-label="principale"></i></td></tr>
     </tbody>
   </table></div>
 
   <div class="comp-list">
-    <div class="comp"><div class="comp-head"><span class="n">C1</span><h3>Gérer le patrimoine informatique</h3></div><ul><li><a href="#r-salle-info">R1</a> : renouvellement et recensement des 36 postes dans IACA.</li><li><a href="#r-impression">R3</a> : inventaire des imprimantes avec STUDIUM.</li></ul></div>
-    <div class="comp"><div class="comp-head"><span class="n">C2</span><h3>Répondre aux incidents et aux demandes d'assistance</h3></div><ul><li><a href="#r-reseau">R2</a> : poste sur le mauvais VLAN, pannes réseau en Info 2.</li><li><a href="#r-impression">R3</a> : imprimante absente des sessions au CDI.</li></ul></div>
+    <div class="comp"><div class="comp-head"><span class="n">C1</span><h3>Gérer le patrimoine informatique</h3></div><ul><li><a href="#r-salle-info">R1</a> : renouvellement et recensement des 36 postes dans IACA.</li><li><a href="#r-impression">R3</a> : inventaire des imprimantes avec STUDIUM.</li><li><a href="#r-suite">R4</a> : comparaison des licences actuelles et des solutions libres.</li></ul></div>
+    <div class="comp"><div class="comp-head"><span class="n">C2</span><h3>Répondre aux incidents et aux demandes d'assistance et d'évolution</h3></div><ul><li><a href="#r-reseau">R2</a> : poste sur le mauvais VLAN, pannes réseau en Info 2.</li><li><a href="#r-impression">R3</a> : imprimante absente des sessions au CDI.</li></ul></div>
     <div class="comp"><div class="comp-head"><span class="n">C3</span><h3>Développer la présence en ligne de l'organisation</h3></div><ul><li><a href="#r-tauxpilot">A1</a> : site public en HTTPS sur tauxpilot.fr, e-mails transactionnels.</li></ul></div>
     <div class="comp"><div class="comp-head"><span class="n">C4</span><h3>Travailler en mode projet</h3></div><ul><li><a href="#r-tauxpilot">A1</a> : plan de MVP, journal de reprise, versionnement Git.</li></ul></div>
-    <div class="comp"><div class="comp-head"><span class="n">C5</span><h3>Mettre à disposition des utilisateurs un service informatique</h3></div><ul><li><a href="#r-salle-info">R1</a> : postes déployés et testés avant la reprise des cours.</li><li><a href="#r-reseau">R2</a> : accès à Veyon via NAT.</li><li><a href="#r-tauxpilot">A1</a> : déploiement en conteneurs avec contrôle de santé.</li></ul></div>
+    <div class="comp"><div class="comp-head"><span class="n">C5</span><h3>Mettre à disposition des utilisateurs un service informatique</h3></div><ul><li><a href="#r-salle-info">R1</a> : postes déployés et testés avant la reprise des cours.</li><li><a href="#r-reseau">R2</a> : accès à Veyon via NAT.</li><li><a href="#r-impression">R3</a> : nouvelles files d'impression créées et testées.</li><li><a href="#r-tauxpilot">A1</a> : déploiement en conteneurs avec contrôle de santé.</li></ul></div>
     <div class="comp"><div class="comp-head"><span class="n">C6</span><h3>Organiser son développement professionnel</h3></div><ul><li><a href="#veille">Veille NetDevOps</a> : dispositif PULL / PUSH et journal.</li><li><a href="#r-suite">R4</a> : étude de La Suite Numérique.</li><li><a href="#r-tauxpilot">A1</a> : autoformation à Docker, FastAPI et Next.js.</li></ul></div>
   </div>
 </section>
